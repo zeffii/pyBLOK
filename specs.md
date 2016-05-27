@@ -20,7 +20,7 @@ The main kinds of modules are Generate / Modulate / Control / Output. Analyze an
    - P3:    Sustain     0.0 ... 1.0  // default 0.5
 ```
 
-#### Envelope (advanced)
+#### Envelope (custom)
 
 ```
    - TYPE:  "23"
@@ -32,6 +32,25 @@ The main kinds of modules are Generate / Modulate / Control / Output. Analyze an
    - P3:    Loop Pos    0.0 ... 1.0  // default 0.5
    - P4-195:Envelope    0.0 ... 1.0  // default 0.5
 ```
+#### Envelope (Advanced)
+
+```
+   - TYPE:  "55"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    Attack      0.0 ... 1.0  // default 0.1
+   - P1:    Decay       0.0 ... 1.0  // default 0.2
+   - P2:    Sustain     0.0 ... 1.0  // default 0.4
+   - P3:    Release     0.0 ... 1.0  // default 0.5
+   - P4:    Amount      0.0 ... 1.0  // default 1.0
+   - P5:    Sust.Decay  0.0 ... 1.0  // default 0.5
+   - P6-17  p6 bezier control 1
+            p7 bezier control 2
+            p8 bezier control 3
+            p9 bezier control 4
+            < to do -- this is not imperative yet >
+```
+
 
 #### LFO
 
