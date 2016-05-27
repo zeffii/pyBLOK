@@ -265,11 +265,19 @@ External
 #### Filter
 ```
    - TYPE:  "1"
+   - P1:    Cutoff      0.0 ... 1.0  // default 0.5
+   - P2:    Resonance   0.0 ... 1.0  // default 0.0
+   - P3:    kind                     // (enum)
+            - Low Pass   "0.000000"
+            - HighPass   "0.333333"
+            - BandPass   "0.555555"
+            - BandReject "1.0"
 
 ```
 #### Amplifier
 ```
    - TYPE:  "6"
+   - P1:    Factor       0.0 ... 1.0  // default 0.5
 
 ```
 #### Waveshaper
@@ -329,10 +337,10 @@ External
 #### Crossfade
 ```
    - TYPE:  "46"
-   0  amp1
-   1  amp2
-   2  mix
-   3  signal type (AR,CR)
+   P0  amp1
+   P1  amp2
+   P2  mix
+   P3  signal type (AR,CR)
 
 ```
 
