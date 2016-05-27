@@ -13,7 +13,12 @@ The main kinds of modules are:
  -[ ] Output  
 ```
 
- Analyze and Patch are less interesting for scripting access. All X,Y params excluded from the specs.
+ Analyze and Patch are less interesting for scripting access. All X,Y params excluded from the specs. And Pos / ID
+
+```
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+```
 
 ### CONTROL
 
@@ -21,8 +26,6 @@ The main kinds of modules are:
 
 ```
    - TYPE:  "2"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    Attack      0.0 ... 1.0  // default 0.0
    - P1:    Decay       0.0 ... 1.0  // default 0.2
    - P2:    Sustain     0.0 ... 1.0  // default 0.3
@@ -33,8 +36,6 @@ The main kinds of modules are:
 
 ```
    - TYPE:  "23"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    Speed       0.0 ... 1.0  // default 0.6
    - P1:    Loop        0.2 ... 1.0  // default 0.2 (bool)
    - P2:    Sustain     0.3 ... 1.0  // default 0.3 (bool)
@@ -45,8 +46,6 @@ The main kinds of modules are:
 
 ```
    - TYPE:  "55"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    Attack      0.0 ... 1.0  // default 0.1
    - P1:    Decay       0.0 ... 1.0  // default 0.2
    - P2:    Sustain     0.0 ... 1.0  // default 0.4
@@ -71,8 +70,6 @@ The main kinds of modules are:
 
 ```
    - TYPE:  "3"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    frequency   0.0 ... 1.0  // default 0.5
    - P1:    amp         0.0 ... 1.0  // default 0.5
    - P2:    shape                    // default 0.5 (enum)
@@ -121,8 +118,6 @@ External
 #### Env Trigger
 ```
    - TYPE:  "51"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    Pregain     0.0 ... 1.0  // default 1.0
    - P1:    Attack      0.0 ... 1.0  // default 0.5
    - P2:    Release     0.0 ... 1.0  // default 0.5
@@ -133,8 +128,6 @@ External
 #### Dyn Follower
 ```
    - TYPE:  "54"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    Pregain     0.0 ... 1.0  // default 1.0
    - P1:    Attack      0.0 ... 1.0  // default 0.5
    - P2:    Release     0.0 ... 1.0  // default 0.5
@@ -149,8 +142,6 @@ External
 #### Oscillator
 ```
    - TYPE:  "4"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    tuning      0.0 ... 1.0  // default 0.5
    - P1:    amp         0.0 ... 1.0  // default 0.5
    - P2:    shape                    // default 0.5 (enum)
@@ -163,8 +154,6 @@ External
 #### Sub Oscillator
 ```
    - TYPE:  "18"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    tuning      0.0 ... 1.0  // default 0.5
    - P1:    amp         0.0 ... 1.0  // default 0.5
    - P2:    shape                    // default 0.5 (enum)
@@ -177,8 +166,6 @@ External
 #### Fixed Oscillator
 ```
    - TYPE:  "10"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    tuning      0.0 ... 1.0  // default 0.5
    - P1:    amp         0.0 ... 1.0  // default 0.5
    - P2:    shape                    // default 0.0 (enum)
@@ -191,8 +178,6 @@ External
 #### Hyper Oscillator
 ```
    - TYPE:  "32"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    amp         0.0 ... 1.0  // default 0.5
    - P1:    tuning      0.0 ... 1.0  // default 0.5
    - P2:    diffuse     0.0 ... 1.0  // default 0.5
@@ -207,24 +192,18 @@ External
 #### Noise Oscillator
 ```
    - TYPE:  "7"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    amp         0.0 ... 1.0  // default 0.5
 ```
 
 #### Impulse
 ```
    - TYPE:  "39"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    amp         0.0 ... 1.0  // default 1.0
 ```
 
 #### Sync Oscillator
 ```
    - TYPE:  "43"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    amp         0.0 ... 1.0  // default 0.5
    - P1:    tuning      0.0 ... 1.0  // default 0.5
    - P2:    amount      0.0 ... 1.0  // default 0.5
@@ -239,8 +218,6 @@ External
 #### PWM Oscillator
 ```
    - TYPE:  "42"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    amp         0.0 ... 1.0  // default 0.5
    - P1:    tuning      0.0 ... 1.0  // default 0.5
    - P2:    pulsewidth  0.0 ... 1.0  // default 0.5
@@ -254,8 +231,6 @@ External
 #### Sampler (basic)
 ```
    - TYPE:  "58"
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
    - P0:    tuning      0.0 ... 1.0  // default 0.5
    - P1:    amp         0.0 ... 1.0  // default 0.5
 ```
@@ -265,9 +240,9 @@ External
 #### Filter
 ```
    - TYPE:  "1"
-   - P1:    Cutoff      0.0 ... 1.0  // default 0.5
-   - P2:    Resonance   0.0 ... 1.0  // default 0.0
-   - P3:    kind                     // (enum)
+   - P0:    Cutoff      0.0 ... 1.0  // default 0.5
+   - P1:    Resonance   0.0 ... 1.0  // default 0.0
+   - P2:    kind                     // (enum)
             - Low Pass   "0.000000"
             - HighPass   "0.333333"
             - BandPass   "0.555555"
@@ -277,13 +252,15 @@ External
 #### Amplifier
 ```
    - TYPE:  "6"
-   - P1:    Factor       0.0 ... 1.0  // default 0.5
+   - P0:    Factor      0.0 ... 1.0  // default 0.5
 
 ```
 #### Waveshaper
 ```
    - TYPE:  "24"
-   - ...
+   - P0:    Scale       0.0 ... 1.0  // default 0.5
+   - P1:    Offset      0.0 ... 1.0  // default 0.5
+   - P2-129 Gradient    [0.0 .. 1.0]
 
 ```
 #### Delay
