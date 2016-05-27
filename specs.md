@@ -4,7 +4,14 @@ A preliminary attempt at a library for generating BLOK patches. I'm doing this t
 
 ## Specs for the components of BLOK ( 2015 edition )
 
-The main kinds of modules are Generate / Modulate / Control / Output. Analyze and Patch are less interesting for scripting access. All X,Y params excluded from the specs.
+The main kinds of modules are:  
+
+ -[ ] Generate  
+ -[ ] Modulate  
+ -[x] Control  
+ -[ ] Output  
+
+ Analyze and Patch are less interesting for scripting access. All X,Y params excluded from the specs.
 
 ### CONTROL
 
