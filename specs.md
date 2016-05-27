@@ -4,7 +4,7 @@ A preliminary attempt at a library for generating BLOK patches. I'm doing this t
 
 ## Specs for the components of BLOK ( 2015 edition )
 
-The main kinds of modules are Generate / Modulate / Control / Output. Analyze and Patch or less interesting for scripting access. All modules have X,Y params and are excluded from the specs.
+The main kinds of modules are Generate / Modulate / Control / Output. Analyze and Patch are less interesting for scripting access. All X,Y params excluded from the specs.
 
 ### CONTROL
 
@@ -48,6 +48,20 @@ The main kinds of modules are Generate / Modulate / Control / Output. Analyze an
             - Square    "1.000000"
 ```
 
+#### KNOB
+
+Internal
+
+```
+   - TYPE:  "8"
+   - P0:    range       0.0 ... 1.0  // default 0.5
+```
+External
+
+```
+   - TYPE:  "13..16" -> "28..31"
+   - P0:    range       0.0 ... 1.0  // default 0.5
+```
 
 ### GENERATE 
 
