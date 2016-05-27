@@ -27,8 +27,8 @@ The main kinds of modules are Generate / Modulate / Control / Output. Analyze an
    - POS:   ( 0...n , DAG position, or Z position? )     
    - ID:    given at creation time
    - P0:    Speed       0.0 ... 1.0  // default 0.6
-   - P1:    Loop        0.0 ... 1.0  // default 0.2
-   - P2:    Sustain     0.0 ... 1.0  // default 0.3
+   - P1:    Loop        0.2 ... 1.0  // default 0.2 (bool)
+   - P2:    Sustain     0.3 ... 1.0  // default 0.3 (bool)
    - P3:    Loop Pos    0.0 ... 1.0  // default 0.5
    - P4-195:Envelope    0.0 ... 1.0  // default 0.5
 ```
@@ -41,7 +41,7 @@ The main kinds of modules are Generate / Modulate / Control / Output. Analyze an
    - ID:    given at creation time
    - P0:    frequency   0.0 ... 1.0  // default 0.5
    - P1:    amp         0.0 ... 1.0  // default 0.5
-   - P2:    shape                    // default 0.5
+   - P2:    shape                    // default 0.5 (enum)
             - Sine      "0.000000"
             - Tri       "0.333333"
             - Saw       "0.500000"
@@ -58,7 +58,7 @@ The main kinds of modules are Generate / Modulate / Control / Output. Analyze an
    - ID:    given at creation time
    - P0:    semitone    0.0 ... 1.0  // default 0.5
    - P1:    amp         0.0 ... 1.0  // default 0.5
-   - P2:    shape                    // default 0.5
+   - P2:    shape                    // default 0.5 (enum)
             - Sine      "0.000000"
             - Tri       "0.333333"
             - Saw       "0.500000"
