@@ -96,6 +96,18 @@ External
    - P4:    Rel.level   0.0 ... 1.0  // default 1.0
    - P5:    Mod.Scale   0.0 ... 1.0  // default 1.0
 ```
+#### Dyn Follower
+```
+   - TYPE:  "54"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    Pregain     0.0 ... 1.0  // default 1.0
+   - P1:    Attack      0.0 ... 1.0  // default 0.5
+   - P2:    Release     0.0 ... 1.0  // default 0.5
+   - P3:    Thres.level 0.0 ... 1.0  // default 0.5
+   - P4:    Thres.Ratio 0.0 ... 1.0  // default 0.2
+   - P5:    Mod.Scale   0.0 ... 1.0  // default 1.0
+```
 
 
 ### GENERATE 
