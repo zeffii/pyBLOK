@@ -264,74 +264,124 @@ External
 
 #### Filter
 ```
-   - TYPE:  "87"
+   - TYPE:  "1"
 
 ```
 #### Amplifier
 ```
-   - TYPE:  "89"
+   - TYPE:  "6"
 
 ```
 #### Waveshaper
 ```
-   - TYPE:  "91"
+   - TYPE:  "24"
    - ...
 
 ```
 #### Delay
 ```
-   - TYPE:  "93"
+   - TYPE:  "19"
    - ...
 
 ```
 #### Keytracked Delay
 ```
-   - TYPE:  "95"
+   - TYPE:  "20"
    - ...
 
 ```
 #### Filter Delay
 ```
-   - TYPE:  "97"
+   - TYPE:  "21"
    - ...
    - ...
 
 ```
 #### Invert
 ```
-   - TYPE:  "99"
+   - TYPE:  "27"
 
 ```
 #### Rescale
 ```
-   - TYPE:  "101"
+   - TYPE:  "26"
 
 ```
 #### Bit Crusher
 ```
-   - TYPE:  "103"
+   - TYPE:  "34"
 
 ```
 #### Clipper
 ```
-   - TYPE:  "105"
+   - TYPE:  "40"
    0
    1
 
 ```
 #### VU Tracker
 ```
-   - TYPE:  "107"
+   - TYPE:  "41"
    0  float
    1  bool
 
 ```
 #### Crossfade
 ```
-   - TYPE:  "109"
+   - TYPE:  "46"
    0  amp1
    1  amp2
    2  mix
    3  signal type (AR,CR)
 
+```
+
+#### Env Trigger
+```
+   - TYPE:  "51"
+   0  pregain      1.0
+   1  attack       0.5
+   2  release      0.5
+   3  Trig Level   0.5
+   4  Rel Level    1.0
+   5  Mod Scale    0.5
+
+```
+
+#### Dyn Follower
+```
+   - TYPE:  "54"
+   0  pregain      1.0
+   1  attack       0.5
+   2  release      0.5
+   3  Thres.Level  0.5
+   4  Thres.Ratio  0.2
+   5  Mod Scale    1.0
+
+```
+
+#### Filter 2
+```
+   - TYPE:  "56"
+   - 0 Cutoff
+   - 1 Resonance
+   - 2 kind     (enum) LP HP BP BR
+   - 3 keytrack (bool) 0.0
+
+```
+#### 3 band EQ
+```
+   - TYPE:  "57"
+   - 0 kind    (enum) Off, peak, low, high
+   - 1 Cutoff
+   - 2 width
+   - 3 Amp
+   - 4 kind    (enum) Off, peak, low, high
+   - 5 Cutoff
+   - 6 width
+   - 7 Amp
+   - 8 kind    (enum) Off, peak, low, high
+   - 9 Cutoff
+   - 10 width
+   - 11 Amp
 ```
