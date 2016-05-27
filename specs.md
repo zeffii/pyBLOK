@@ -6,10 +6,12 @@ A preliminary attempt at a library for generating BLOK patches. I'm doing this t
 
 The main kinds of modules are:  
 
+```
  -[ ] Generate  
- -[ ] Modulate  
  -[x] Control  
+ -[ ] Modify  
  -[ ] Output  
+```
 
  Analyze and Patch are less interesting for scripting access. All X,Y params excluded from the specs.
 
