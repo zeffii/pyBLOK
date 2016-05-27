@@ -6,9 +6,9 @@ A preliminary attempt at a library for generating BLOK patches. I'm doing this t
 
 The main kinds of modules are Generate / Modulate / Control / Output. Analyze and Patch or less interesting for scripting access. All modules have X,Y params and are excluded from the specs.
 
-## CONTROL
+### CONTROL
 
-### ENVELOPE (basic)
+#### ENVELOPE (basic)
 
 ```
    - TYPE:  "2"
@@ -20,9 +20,36 @@ The main kinds of modules are Generate / Modulate / Control / Output. Analyze an
    - P3:    Sustain     0.0 ... 1.0  // default 0.5
 ```
 
+#### ENVELOPE (advanced)
+
+```
+   - TYPE:  "23"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    Speed       0.0 ... 1.0  // default 0.6
+   - P1:    Loop        0.0 ... 1.0  // default 0.2
+   - P2:    Sustain     0.0 ... 1.0  // default 0.3
+   - P3:    Loop Pos    0.0 ... 1.0  // default 0.5
+   - P4-195:Envelope    0.0 ... 1.0  // default 0.5
+```
+
+#### LFO
+
+```
+   - TYPE:  "3"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    frequency   0.0 ... 1.0  // default 0.5
+   - P1:    amp         0.0 ... 1.0  // default 0.5
+   - P2:    shape                    // default 0.5
+            - Sine      "0.000000"
+            - Tri       "0.333333"
+            - Saw       "0.500000"
+            - Square    "1.000000"
+```
 
 
-## GENERATE 
+### GENERATE 
 
 #### OSC
 ```
@@ -31,7 +58,7 @@ The main kinds of modules are Generate / Modulate / Control / Output. Analyze an
    - ID:    given at creation time
    - P0:    semitone    0.0 ... 1.0  // default 0.5
    - P1:    amp         0.0 ... 1.0  // default 0.5
-   - P2: shape                       // default 0.5
+   - P2:    shape                    // default 0.5
             - Sine      "0.000000"
             - Tri       "0.333333"
             - Saw       "0.500000"
