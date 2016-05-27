@@ -8,7 +8,7 @@ The main kinds of modules are Generate / Modulate / Control / Output. Analyze an
 
 ### CONTROL
 
-#### ENVELOPE (basic)
+#### Envelope (basic)
 
 ```
    - TYPE:  "2"
@@ -20,7 +20,7 @@ The main kinds of modules are Generate / Modulate / Control / Output. Analyze an
    - P3:    Sustain     0.0 ... 1.0  // default 0.5
 ```
 
-#### ENVELOPE (advanced)
+#### Envelope (advanced)
 
 ```
    - TYPE:  "23"
@@ -48,7 +48,7 @@ The main kinds of modules are Generate / Modulate / Control / Output. Analyze an
             - Square    "1.000000"
 ```
 
-#### KNOB
+#### Knob
 
 Internal
 
@@ -62,6 +62,41 @@ External
    - TYPE:  "13..16" -> "28..31"
    - P0:    range       0.0 ... 1.0  // default 0.5
 ```
+
+#### Velocity
+```
+   - TYPE:  "17"
+```
+#### Keytrack
+```
+   - TYPE:  "33"
+   - P0-127:range      0.0 ... 1.0  // default gradient up
+```
+#### Random
+```
+   - TYPE:  "35"
+```
+#### Aftertouch
+```
+   - TYPE:  "48"
+```
+#### ModWheel
+```
+   - TYPE:  "47"
+```
+#### Env Trigger
+```
+   - TYPE:  "51"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    Pregain     0.0 ... 1.0  // default 1.0
+   - P1:    Attack      0.0 ... 1.0  // default 0.5
+   - P2:    Release     0.0 ... 1.0  // default 0.5
+   - P3:    Trig.level  0.0 ... 1.0  // default 0.5
+   - P4:    Rel.level   0.0 ... 1.0  // default 1.0
+   - P5:    Mod.Scale   0.0 ... 1.0  // default 1.0
+```
+
 
 ### GENERATE 
 
