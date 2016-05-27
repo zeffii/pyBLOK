@@ -44,11 +44,18 @@ The main kinds of modules are Generate / Modulate / Control / Output. Analyze an
    - P3:    Release     0.0 ... 1.0  // default 0.5
    - P4:    Amount      0.0 ... 1.0  // default 1.0
    - P5:    Sust.Decay  0.0 ... 1.0  // default 0.5
-   - P6-17  p6 bezier control 1
-            p7 bezier control 2
-            p8 bezier control 3
-            p9 bezier control 4
-            < to do -- this is not imperative yet >
+   - P6-17  p6  bezier ctrl 1 x
+            p7  bezier ctrl 1 y
+            p8  bezier ctrl 2 x
+            p9  bezier ctrl 2 y
+            p10 bezier ctrl 3 x
+            p11 bezier ctrl 3 y
+            p12 bezier ctrl 4 x
+            p13 bezier ctrl 4 y
+            p14 bezier ctrl 5 x
+            p15 bezier ctrl 5 y
+            p16 bezier ctrl 6 x
+            p17 bezier ctrl 6 y
 ```
 
 
