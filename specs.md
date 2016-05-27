@@ -7,7 +7,7 @@ A preliminary attempt at a library for generating BLOK patches. I'm doing this t
 The main kinds of modules are:  
 
 ```
- -[ ] Generate  
+ -[x] Generate  
  -[x] Control  
  -[ ] Modify  
  -[ ] Output  
@@ -258,4 +258,80 @@ External
    - ID:    given at creation time
    - P0:    tuning      0.0 ... 1.0  // default 0.5
    - P1:    amp         0.0 ... 1.0  // default 0.5
+```
+
+### Modifiers
+
+#### Filter
+```
+   - TYPE:  "87"
+
+```
+#### Amplifier
+```
+   - TYPE:  "89"
+
+```
+#### Waveshaper
+```
+   - TYPE:  "91"
+   - ...
+
+```
+#### Delay
+```
+   - TYPE:  "93"
+   - ...
+
+```
+#### Keytracked Delay
+```
+   - TYPE:  "95"
+   - ...
+
+```
+#### Filter Delay
+```
+   - TYPE:  "97"
+   - ...
+   - ...
+
+```
+#### Invert
+```
+   - TYPE:  "99"
+
+```
+#### Rescale
+```
+   - TYPE:  "101"
+
+```
+#### Bit Crusher
+```
+   - TYPE:  "103"
+
+```
+#### Clipper
+```
+   - TYPE:  "105"
+   0
+   1
+
+```
+#### VU Tracker
+```
+   - TYPE:  "107"
+   0  float
+   1  bool
+
+```
+#### Crossfade
+```
+   - TYPE:  "109"
+   0  amp1
+   1  amp2
+   2  mix
+   3  signal type (AR,CR)
+
 ```
