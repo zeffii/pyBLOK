@@ -4,19 +4,37 @@ A preliminary attempt at a library for generating BLOK patches. I'm doing this t
 
 ## Specs for the components of BLOK ( 2015 edition )
 
-## GENERATE 
+The main kinds of modules are Generate / Modulate / Control / Output. Analyze and Patch or less interesting for scripting access. All modules have X,Y params and are excluded from the specs.
+
+## CONTROL
+
+### ENVELOPE (basic)
 
 ```
-OSC
-   - TYPE: 	"4"
-   - POS: 	( 0...n , DAG position, or Z position? )     
-   - ID:	given at creation time
-   - P0:    semitone	0.0 ... 1.0  // default 0.5
-   - P1:    amp      	0.0 ... 1.0  // default 0.5
-   - P2:	shape 					 // default 0.5
-   			- Sine 		"0.000000" 				 
-   			- Tri 		"0.333333"
-   			- Saw		  "0.500000"
-   			- Square	"1.000000"
+   - TYPE:  "2"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    Attack      0.0 ... 1.0  // default 0.0
+   - P1:    Decay       0.0 ... 1.0  // default 0.2
+   - P2:    Sustain     0.0 ... 1.0  // default 0.3
+   - P3:    Sustain     0.0 ... 1.0  // default 0.5
+```
+
+
+
+## GENERATE 
+
+#### OSC
+```
+   - TYPE:  "4"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    semitone    0.0 ... 1.0  // default 0.5
+   - P1:    amp         0.0 ... 1.0  // default 0.5
+   - P2: shape                       // default 0.5
+            - Sine      "0.000000"
+            - Tri       "0.333333"
+            - Saw       "0.500000"
+            - Square    "1.000000"
 ```
 
