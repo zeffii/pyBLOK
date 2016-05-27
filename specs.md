@@ -67,7 +67,6 @@ The main kinds of modules are:
             p17 bezier ctrl 6 y
 ```
 
-
 #### LFO
 
 ```
@@ -147,12 +146,12 @@ External
 
 ### GENERATE 
 
-#### OSC
+#### Oscillator
 ```
    - TYPE:  "4"
    - POS:   ( 0...n , DAG position, or Z position? )     
    - ID:    given at creation time
-   - P0:    semitone    0.0 ... 1.0  // default 0.5
+   - P0:    tuning      0.0 ... 1.0  // default 0.5
    - P1:    amp         0.0 ... 1.0  // default 0.5
    - P2:    shape                    // default 0.5 (enum)
             - Sine      "0.000000"
@@ -161,3 +160,102 @@ External
             - Square    "1.000000"
 ```
 
+#### Sub Oscillator
+```
+   - TYPE:  "18"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    tuning      0.0 ... 1.0  // default 0.5
+   - P1:    amp         0.0 ... 1.0  // default 0.5
+   - P2:    shape                    // default 0.5 (enum)
+            - Sine      "0.000000"
+            - Tri       "0.333333"
+            - Saw       "0.500000"
+            - Square    "1.000000"
+```
+
+#### Fixed Oscillator
+```
+   - TYPE:  "10"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    tuning      0.0 ... 1.0  // default 0.5
+   - P1:    amp         0.0 ... 1.0  // default 0.5
+   - P2:    shape                    // default 0.0 (enum)
+            - Sine      "0.000000"
+            - Tri       "0.333333"
+            - Saw       "0.500000"
+            - Square    "1.000000"
+```
+
+#### Hyper Oscillator
+```
+   - TYPE:  "32"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    amp         0.0 ... 1.0  // default 0.5
+   - P1:    tuning      0.0 ... 1.0  // default 0.5
+   - P2:    diffuse     0.0 ... 1.0  // default 0.5
+   - P3:    spread      0.0 ... 1.0  // default 0.5
+   - P4:    shape                    // default 0.5 (enum)
+            - Sine      "0.000000"
+            - Tri       "0.333333"
+            - Saw       "0.500000"
+            - Square    "1.000000"
+```
+
+#### Noise Oscillator
+```
+   - TYPE:  "7"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    amp         0.0 ... 1.0  // default 0.5
+```
+
+#### Impulse
+```
+   - TYPE:  "39"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    amp         0.0 ... 1.0  // default 1.0
+```
+
+#### Sync Oscillator
+```
+   - TYPE:  "43"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    amp         0.0 ... 1.0  // default 0.5
+   - P1:    tuning      0.0 ... 1.0  // default 0.5
+   - P2:    amount      0.0 ... 1.0  // default 0.5
+   - P3:    sharpness   0.0 ... 1.0  // default 0.5
+   - P4:    phase.reset 0.0 ... 1.0  // default 0.0
+   - P5:    shape                    // default 0.5 (enum)
+            - Sine      "0.000000"
+            - Tri       "0.333333"
+            - Saw       "0.500000"
+            - Square    "1.000000"
+```
+#### PWM Oscillator
+```
+   - TYPE:  "42"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    amp         0.0 ... 1.0  // default 0.5
+   - P1:    tuning      0.0 ... 1.0  // default 0.5
+   - P2:    pulsewidth  0.0 ... 1.0  // default 0.5
+   - P3:    phase.reset 0.0 ... 1.0  // default 0.0
+   - P4:    shape                    // default 0.5 (enum)
+            - Sine      "0.000000"
+            - Tri       "0.333333"
+            - Saw       "0.500000"
+            - Square    "1.000000"
+```
+#### Sampler (basic)
+```
+   - TYPE:  "58"
+   - POS:   ( 0...n , DAG position, or Z position? )     
+   - ID:    given at creation time
+   - P0:    tuning      0.0 ... 1.0  // default 0.5
+   - P1:    amp         0.0 ... 1.0  // default 0.5
+```
