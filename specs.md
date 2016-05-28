@@ -418,3 +418,65 @@ External
   p3,6,9...49  down   0.0 ... 1.0  // default 0.0 (bool)
   p4,7,10..50  note   0.0 ... 1.0  // default 0.5
   p5,8,11..51  up     0.0 ... 1.0  // default 0.0 (bool)
+
+### Connections
+
+These seem to be declared so
+
+``` 
+    <CONNECTION ID="127" FROM="3" TO="1" INPUTID="0" />
+
+    - ID        :is a token
+    - FROM..TO  :uses the POS token
+    - INPUTID   :specifies which input socket on the destination
+
+```
+### Globals
+
+it's one large non-dynamic blok (no socket inputs, only manual sliders)
+
+```
+ <GLOBAL 
+   ID="118"   // some number
+   Param_Chorus_Enable="0.000000" 
+   Param_Chorus_Phasing="0.400000" 
+   Param_Chorus_Speed="0.400000" 
+   Param_Chorus_WetDry="0.400000" 
+   Param_Delay_Cross="0.000000" 
+   Param_Delay_Enable="0.000000" 
+   Param_Delay_Feedback="0.000000" 
+   Param_Delay_Length="0.400000" 
+   Param_Delay_Spacing="0.000000" 
+   Param_Delay_TempoSync="0.000000" 
+   Param_Delay_Type="0.000000" 
+   Param_Delay_WetDry="0.400000" 
+   Param_Polyphony="0.500000" 
+   Param_Reverb_Damping="0.300000" 
+   Param_Reverb_Decay="0.500000" 
+   Param_Reverb_Enable="0.000000" 
+   Param_Reverb_ModAmount="0.250000" 
+   Param_Reverb_ModSpeed="0.250000" 
+   Param_Reverb_Roomsize="0.500000" 
+   Param_Reverb_WetDry="0.300000" 
+   Param_Voice_Bendrange="0.500000" 
+   Param_Voice_Portamento="0.000000"
+   Param_Voice_Transpose="0.500000" />
+ ```
+
+ ### .blkx spec
+
+
+
+```svg
+<?xml version="1.0" standalone="no" ?>
+<storables>
+    <GLOBAL ID="118" ...... />
+    ...
+    <BLOCK ID="119" TYPE="0" X="621" Y="361" POS="0" P0="0.500000" />
+    ...
+    ...
+    <CONNECTION ID="127" FROM="3" TO="1" INPUTID="0" />
+    ...
+</storables>
+```
+where BLOK and CONNECTION are seemingly written in order of creation time. (ie POS allocation time? ..) -- this I have not looked at yet.
