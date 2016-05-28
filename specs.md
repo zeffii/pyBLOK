@@ -249,124 +249,147 @@ External
             - BandReject "1.0"
 
 ```
+
 #### Amplifier
 ```
    - TYPE:  "6"
    - P0:    Factor      0.0 ... 1.0  // default 0.5
 
 ```
+
 #### Waveshaper
 ```
    - TYPE:  "24"
    - P0:    Scale       0.0 ... 1.0  // default 0.5
    - P1:    Offset      0.0 ... 1.0  // default 0.5
-   - P2-129 Gradient    [0.0 .. 1.0]
+   - P2-129 Gradient    [0.0 .. 1.0, ..]
 
 ```
+
 #### Delay
 ```
    - TYPE:  "19"
-   - ...
-
+   - P0:    Time        0.0 ... 1.0  // default 0.5    (249ms)
+   - P1:    Feedback    0.0 ... 1.0  // default 0.0
 ```
+
 #### Keytracked Delay
 ```
    - TYPE:  "20"
-   - ...
-
+   - P0:    Time        0.0 ... 1.0  // default 0.5
+   - P1:    Feedback    0.0 ... 1.0  // default 0.0
 ```
-#### Filter Delay
+
+#### Filter Delay (keytracked)
 ```
    - TYPE:  "21"
-   - ...
-   - ...
+   - P0:    Time        0.0 ... 1.0  // default 0.5
+   - P1:    Feedback    0.0 ... 1.0  // default 0.0
+   - P2:    Cutoff      0.0 ... 1.0  // default 0.5
 
 ```
+
 #### Invert
 ```
    - TYPE:  "27"
 
 ```
+
 #### Rescale
 ```
    - TYPE:  "26"
-
+   - P0:    Factor      0.0 ... 1.0  // default 1.0
+   - P1:    Offset      0.0 ... 1.0  // default 0.5
 ```
+
 #### Bit Crusher
 ```
    - TYPE:  "34"
-
+   - P0:    Bits        0.0 ... 1.0  // default 0.0  20-0
 ```
 #### Clipper
 ```
    - TYPE:  "40"
-   0
-   1
+   - P0     Upper.Lim   0.0 ... 1.0  // default 1.0
+   - P1     Lower.Lim   0.0 ... 1.0  // default 0.0
 
 ```
 #### VU Tracker
 ```
    - TYPE:  "41"
-   0  float
-   1  bool
-
+   - P0     Decay       0.0 ... 1.0  // default 0.5 (445ms)
+   - P1     peak        0.0 ... 1.0  // default 1.0 (bool)   
 ```
+
 #### Crossfade
 ```
    - TYPE:  "46"
-   P0  amp1
-   P1  amp2
-   P2  mix
-   P3  signal type (AR,CR)
-
+   - P0     amp1          0.0 ... 1.0  // default 0.5
+   - P1     amp2          0.0 ... 1.0  // default 0.5
+   - P2     mix           0.0 ... 1.0  // default 0.5
+   - P3     Audio (AR,CR) 0.0 ... 1.0  // default 1.0
 ```
 
 #### Env Trigger
 ```
    - TYPE:  "51"
-   0  pregain      1.0
-   1  attack       0.5
-   2  release      0.5
-   3  Trig Level   0.5
-   4  Rel Level    1.0
-   5  Mod Scale    0.5
-
+   - P0     pregain      0.0 ... 1.0  // default 1.0 (6.02dB)
+   - P1     attack       0.0 ... 1.0  // default 0.5 (445ms)
+   - P2     release      0.0 ... 1.0  // default 0.5 (445ms)
+   - P3     Trig Level   0.0 ... 1.0  // default 0.5 (-12dB)
+   - P4     Rel Level    0.0 ... 1.0  // default 1.0
+   - P5     Mod Scale    0.0 ... 1.0  // default 1.0
 ```
 
 #### Dyn Follower
 ```
    - TYPE:  "54"
-   0  pregain      1.0
-   1  attack       0.5
-   2  release      0.5
-   3  Thres.Level  0.5
-   4  Thres.Ratio  0.2
-   5  Mod Scale    1.0
-
+   - P0     pregain      0.0 ... 1.0  // default 1.0 (6.02dB)
+   - P1     attack       0.0 ... 1.0  // default 0.5 (445ms)
+   - P2     release      0.0 ... 1.0  // default 0.5 (445ms)
+   - P3     Thres.Level  0.0 ... 1.0  // default 0.5 (-12dB)
+   - P4     Thres.Ratio  0.0 ... 1.0  // default 0.2
+   - P5     Mod Scale    0.0 ... 1.0  // default 1.0
 ```
 
 #### Filter 2
 ```
    - TYPE:  "56"
-   - 0 Cutoff
-   - 1 Resonance
-   - 2 kind     (enum) LP HP BP BR
-   - 3 keytrack (bool) 0.0
-
+   - P0     Cutoff       0.0 ... 1.0  // default 0.5 (704Hz)
+   - P1     Resonance    0.0 ... 1.0  // default 0.0
+   - P2     kind                      // (enum)
+            - Low Pass   "0.000000"
+            - HighPass   "0.333333"
+            - BandPass   "0.500000"
+            - BandReject "1.0"
+   - P3     keytrack     0.0 ... 1.0  // default 0.0 (bool)
 ```
+
 #### 3 band EQ
 ```
    - TYPE:  "57"
-   - 0 kind    (enum) Off, peak, low, high
-   - 1 Cutoff
-   - 2 width
-   - 3 Amp
-   - 4 kind    (enum) Off, peak, low, high
-   - 5 Cutoff
-   - 6 width
-   - 7 Amp
-   - 8 kind    (enum) Off, peak, low, high
-   - 9 Cutoff
-   - 10 width
-   - 11 Amp
+   - P0     kind                      // (enum) 
+            - Off        "0.000000"
+            - peak       "0.333333"
+            - low        "0.500000"
+            - high       "1.000000"
+   - P1     Freq         0.0 ... 1.0  // default 0.5 (704Hz)
+   - P2     width        0.0 ... 1.0  // default 0.5
+   - P3     Amp          0.0 ... 1.0  // default 0.0
+   - P4     kind                      // (enum) 
+            - Off        "0.000000"
+            - peak       "0.333333"
+            - low        "0.500000"
+            - high       "1.000000"
+   - P5     Freq         0.0 ... 1.0  // default 0.5 (704Hz)
+   - P6     width        0.0 ... 1.0  // default 0.5
+   - P7     Amp          0.0 ... 1.0  // default 0.0
+   - P8     kind                      // (enum) 
+            - Off        "0.000000"
+            - peak       "0.333333"
+            - low        "0.500000"
+            - high       "1.000000"
+   - P9     Freq         0.0 ... 1.0  // default 0.5 (704Hz)
+   - P10    width        0.0 ... 1.0  // default 0.5
+   - P11    Amp          0.0 ... 1.0  // default 0.0   
 ```
