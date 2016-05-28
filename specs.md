@@ -393,3 +393,28 @@ External
    - P10    width        0.0 ... 1.0  // default 0.5
    - P11    Amp          0.0 ... 1.0  // default 0.0   
 ```
+
+### Output
+
+#### Mono Out
+
+  type 0  
+  p0  Volume 0.5
+
+#### Stereo Out
+
+  type 25  
+  p0  Pan 0.5
+  p1  Volume 0.5
+
+#### Arp
+
+  // todo... but backburner
+  type 44
+  p0   speed
+  p1   ticks
+  p2   octaves
+  // this might be off by one, the progress indicator may be p3..
+  p3,6,9...49  down   0.0 ... 1.0  // default 0.0 (bool)
+  p4,7,10..50  note   0.0 ... 1.0  // default 0.5
+  p5,8,11..51  up     0.0 ... 1.0  // default 0.0 (bool)
