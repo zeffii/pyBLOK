@@ -1,8 +1,18 @@
-# GPL3 License
-# Author Dealga McArdle June 2016
+import blok_units
 
 from blok_units import blok_dict
 
+
+def next_number_generator(start=0):
+    i = start
+    while True:
+        yield i
+        i += 1
+
+
+
+def get_ID():
+    ...
 
 class pBlk:
 

@@ -239,9 +239,5 @@ blok_dict = {
         'P0': {'speed': 1.0},
         'P1': {'ticks': 1.0},
         'P2': {'octaves': 0.5}
-         #  this might be off by one, the progress indicator may be p3..
-         # p3,6,9...49  down   0.0 ... 1.0  // default 0.0 (bool)
-         # p4,7,10..50  note   0.0 ... 1.0  // default 0.5
-         # p5,8,11..51  up     0.0 ... 1.0  // default 0.0 (bool)
     }
 }
