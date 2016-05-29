@@ -1,82 +1,92 @@
-'''
- Analyze and Patch are less interesting for scripting access. All X,Y params excluded from the specs. And Pos / ID
+# GPL3 License
+# Author Dealga McArdle June 2016
 
-   - POS:   ( 0...n , DAG position, or Z position? )     
-   - ID:    given at creation time
-'''
+Sine = 0.000000
+Tri = 0.333333
+Saw = 0.500000
+Square = 1.000000
+
+
+class pBlk:
+
+   defaults = ['ID TYPE X Y POS'].split(' ')
+
+   def __init__(self, name, xy):
+      self.name = name
+      self.TYPE = get_type(name)
+      self.ID = get_ID()
+      self.POS = get_POS()
+      self.X = xy[0]
+      self.Y = xy[1]
+
+   def params(self, parameters):
+      ...
+
+   def __str__(self):
+      ret_str = ["<BLOK"]
+      
+      for d in self.defaults:
+          ret_str.append("{0}=\"{1}\"".format(d, getattr(self, d)))
+
+      for idx, p in enumerate(self.params):
+         ret_str.append("P{0}=\"{1}\"".format(str(idx), p))
+      
+      ret_str.append('/>')
+
+      return ' '.join(ret_str)
+
 
 ### CONTROL
 
-#### Envelope (basic)
+blok_dict = {
+   
+   # Control
 
-'''
-   - TYPE:  "2"
-   - P0:    Attack      0.0 ... 1.0  // default 0.0
-   - P1:    Decay       0.0 ... 1.0  // default 0.2
-   - P2:    Sustain     0.0 ... 1.0  // default 0.3
-   - P3:    Sustain     0.0 ... 1.0  // default 0.5
-'''
+   'Env.basic': {
+      'TYPE': 2,
+      'P0': {'attack': 0.0},
+      'P1': {'decay': 0.2},
+      'P2': {'sustain': 0.3},
+      'P3': {'release': 0.5}
+      },
+   'Env.custom': {
+      'TYPE': 23,
+      'P0': {'speed': 0.6},
+      'P1': {'loop': 0.2}, # (bool, off)
+      'P2': {'sustain': 0.3}, # (bool, off)
+      'P3': {'loop_pos': 0.5},
+      'P4-195': {'envelope': [0.5 for i in range(191)]}
+      },
+   'Env.advanced': {
+      'TYPE': 55,
+      'P0': {'attack': 0.1},
+      'P1': {'decay': 0.2},
+      'P2': {'sustain': 0.4},
+      'P3': {'release': 0.5},
+      'P4': {'amount': 1.0},
+      'P5': {'sust.decay': 0.5},
+      'P6-17': {'envelope': [0.5 for i in range(12)]}  # maybe hard-code these instead..
+      },
+   'LFO': {
+      'TYPE':  3,
+      'P0': {'frequency': 0.5},
+      'P1': {'amp': 0.5},
+      'P2': {'shape': 0.5} # (enum [Sine, Tri, Saw, Square])
+   },
+   'knob.int': {
+      'TYPE': 8,
+      'P0': {'range': 0.5}
+   },
+   'knob.ext': {
+      'TYPE': [13,14,15,16,28,29,30,31],  # online one of each may exist.
+      'P0': {'range': 0.5}
+   },
 
-#### Envelope (custom)
 
-'''
-   - TYPE:  "23"
-   - P0:    Speed       0.0 ... 1.0  // default 0.6
-   - P1:    Loop        0.2 ... 1.0  // default 0.2 (bool)
-   - P2:    Sustain     0.3 ... 1.0  // default 0.3 (bool)
-   - P3:    Loop Pos    0.0 ... 1.0  // default 0.5
-   - P4-195:Envelope    0.0 ... 1.0  // default 0.5
-'''
-#### Envelope (Advanced)
+}
 
-'''
-   - TYPE:  "55"
-   - P0:    Attack      0.0 ... 1.0  // default 0.1
-   - P1:    Decay       0.0 ... 1.0  // default 0.2
-   - P2:    Sustain     0.0 ... 1.0  // default 0.4
-   - P3:    Release     0.0 ... 1.0  // default 0.5
-   - P4:    Amount      0.0 ... 1.0  // default 1.0
-   - P5:    Sust.Decay  0.0 ... 1.0  // default 0.5
-   - P6-17  p6  bezier ctrl 1 x
-            p7  bezier ctrl 1 y
-            p8  bezier ctrl 2 x
-            p9  bezier ctrl 2 y
-            p10 bezier ctrl 3 x
-            p11 bezier ctrl 3 y
-            p12 bezier ctrl 4 x
-            p13 bezier ctrl 4 y
-            p14 bezier ctrl 5 x
-            p15 bezier ctrl 5 y
-            p16 bezier ctrl 6 x
-            p17 bezier ctrl 6 y
-'''
 
-#### LFO
 
-'''
-   - TYPE:  "3"
-   - P0:    frequency   0.0 ... 1.0  // default 0.5
-   - P1:    amp         0.0 ... 1.0  // default 0.5
-   - P2:    shape                    // default 0.5 (enum)
-            - Sine      "0.000000"
-            - Tri       "0.333333"
-            - Saw       "0.500000"
-            - Square    "1.000000"
-'''
-
-#### Knob
-
-# Internal
-
-'''
-   - TYPE:  "8"
-   - P0:    range       0.0 ... 1.0  // default 0.5
-'''
-# External
-
-'''
-   - TYPE:  "13..16" -> "28..31"
-   - P0:    range       0.0 ... 1.0  // default 0.5
 '''
 
 #### Velocity
@@ -99,26 +109,6 @@
 #### ModWheel
 '''
    - TYPE:  "47"
-'''
-#### Env Trigger
-'''
-   - TYPE:  "51"
-   - P0:    Pregain     0.0 ... 1.0  // default 1.0
-   - P1:    Attack      0.0 ... 1.0  // default 0.5
-   - P2:    Release     0.0 ... 1.0  // default 0.5
-   - P3:    Trig.level  0.0 ... 1.0  // default 0.5
-   - P4:    Rel.level   0.0 ... 1.0  // default 1.0
-   - P5:    Mod.Scale   0.0 ... 1.0  // default 1.0
-'''
-#### Dyn Follower
-'''
-   - TYPE:  "54"
-   - P0:    Pregain     0.0 ... 1.0  // default 1.0
-   - P1:    Attack      0.0 ... 1.0  // default 0.5
-   - P2:    Release     0.0 ... 1.0  // default 0.5
-   - P3:    Thres.level 0.0 ... 1.0  // default 0.5
-   - P4:    Thres.Ratio 0.0 ... 1.0  // default 0.2
-   - P5:    Mod.Scale   0.0 ... 1.0  // default 1.0
 '''
 
 
