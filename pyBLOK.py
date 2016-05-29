@@ -35,8 +35,33 @@ class pBlk:
 
         return ' '.join(ret_str)
 
+
+class Connect:
+
+    '''
+    - ID        :is a token
+    - FROM..TO  :uses the POS token
+    - INPUTID   :specifies which input socket on the destination
+    '''
+
+    def __init__(self, _from, _to, socket=None, index=None):
+        self.ID = get_ID()
+        self.FROM = _from.ID
+        self.TO = _to.ID
+        if index:
+            self.INPUTID = index
+        elif socket:
+            self.INPUTID = get_index_from_socketname(socket)
+        else:
+            print('from {0} to {1}.{2} failed..'.format(self.FROM, self.TO, self.INPUTID))
+
+    def __str__(self):
+        const ="<CONNECTION ID=\"{0}\" FROM=\"{1}\" TO=\"{2}\" INPUTID=\"{3}\" />"
+        return const.format(self.ID, self.FROM, self.TO, self.INPUTID)
+
+
+
 blok_dict = {
-   
     'Env.basic': {
         'TYPE': 2,
         'P0': {'attack': 0.0},
@@ -49,7 +74,7 @@ blok_dict = {
         'P0': {'speed': 0.6},
         'P1': {'loop': 0.2}, # (bool, off)
         'P2': {'sustain': 0.3}, # (bool, off)
-        'P3': {'loop_pos': 0.5},
+        'P3': {'loop.pos': 0.5},
         'P4-P195': {'envelope': [0.5 for i in range(191)]}
     },
     'Env.advanced': {
@@ -208,9 +233,9 @@ blok_dict = {
         'P0': {'pregain': 1.0}, #  (6.02dB)
         'P1': {'attack': 0.5}, #  (445ms)
         'P2': {'release': 0.5}, #  (445ms)
-        'P3': {'Trig Level': 0.5}, #  (-12dB)
-        'P4': {'Rel Level': 1.0},  
-        'P5': {'Mod Scale': 1.0}  
+        'P3': {'trig.Level': 0.5}, #  (-12dB)
+        'P4': {'rel.Level': 1.0},  
+        'P5': {'mod.Scale': 1.0}  
     },    
     'Dyn.Follower': {
         'TYPE': 54,
@@ -264,18 +289,7 @@ blok_dict = {
     }
 }
 
-### Connections
-'''
-These seem to be declared so
 
-``` 
-    <CONNECTION ID="127" FROM="3" TO="1" INPUTID="0" />
-
-    - ID        :is a token
-    - FROM..TO  :uses the POS token
-    - INPUTID   :specifies which input socket on the destination
-
-'''
 ### Globals
 
 '''
