@@ -1,4 +1,4 @@
-
+'''
 # Shapes
 Sine = 0.000000
 Tri = 0.333333
@@ -16,9 +16,48 @@ Off = 0.000000
 peak = 0.333333
 low = 0.500000
 high = 1.000000
+'''
+
+DOC = '''
+<?xml version="1.0" standalone="no" ?>
+<storables>
+    {global}
+    {patching}
+</storables>
+'''
+
+# it's one large non-dynamic blok (no socket inputs, only manual sliders)
+GLOBAL = '''
+   <GLOBAL 
+   ID="{0}" 
+   Param_Chorus_Enable="0.000000" 
+   Param_Chorus_Phasing="0.400000" 
+   Param_Chorus_Speed="0.400000" 
+   Param_Chorus_WetDry="0.400000" 
+   Param_Delay_Cross="0.000000" 
+   Param_Delay_Enable="0.000000" 
+   Param_Delay_Feedback="0.000000" 
+   Param_Delay_Length="0.400000" 
+   Param_Delay_Spacing="0.000000" 
+   Param_Delay_TempoSync="0.000000" 
+   Param_Delay_Type="0.000000" 
+   Param_Delay_WetDry="0.400000" 
+   Param_Polyphony="0.500000" 
+   Param_Reverb_Damping="0.300000" 
+   Param_Reverb_Decay="0.500000" 
+   Param_Reverb_Enable="0.000000" 
+   Param_Reverb_ModAmount="0.250000" 
+   Param_Reverb_ModSpeed="0.250000" 
+   Param_Reverb_Roomsize="0.500000" 
+   Param_Reverb_WetDry="0.300000" 
+   Param_Voice_Bendrange="0.500000" 
+   Param_Voice_Portamento="0.000000"
+   Param_Voice_Transpose="0.500000" />
+'''
 
 
-blok_dict = {
+
+BLOKS = {
     'Env.basic': {
         'TYPE': 2,
         'P0': {'attack': 0.0},
@@ -55,7 +94,7 @@ blok_dict = {
         'P0': {'range': 0.5}
     },
     'Knob.ext': {
-        'TYPE': [13,14,15,16,28,29,30,31],  # only one of each may exist.
+        'TYPE': [13, 14, 15, 16, 28, 29, 30, 31], #  only one of each may exist.
         'P0': {'range': 0.5}
     },
     'Velocity': {
@@ -79,7 +118,7 @@ blok_dict = {
         'P0': {'tuning': 0.5},
         'P1': {'amp': 0.5},
         'P2': {'shape': 0.5}  # (enum [Sine, Tri, Saw, Square])
-   },
+    },
     'Fixed.Osc': {
         'TYPE':  10,
         'P0': {'tuning': 0.5},
@@ -108,7 +147,7 @@ blok_dict = {
         'P1': {'tuning': 0.5},
         'P2': {'amount': 0.5},
         'P3': {'sharpness': 0.5},
-        'P4': {'phase.reset' 0.0},
+        'P4': {'phase.reset': 0.0},
         'P5': {'shape': 0.5}  # (enum [Sine, Tri, Saw, Square])
     },
     'PWM.Osc': {
@@ -211,7 +250,7 @@ blok_dict = {
         'P3': {'keytrack': 0.0}, #  (bool)
     },    
     'bandEQ': {
-        'TYPE': 57
+        'TYPE': 57,
         'P0': {'kind': 0.0}, # (enum [Off, peak, low, high]),
         'P1': {'freq': 0.5}, #  (704Hz)
         'P2': {'width': 0.5}, # 
@@ -224,7 +263,7 @@ blok_dict = {
         'P9': {'freq': 0.5}, #  (704Hz)
         'P10': {'width': 0.5}, # 
         'P11': {'amp': 0.0} #    
-    }
+    },
     'Mono.Out': {
         'TYPE': 0,
         'P0': {'volume': 0.5}
