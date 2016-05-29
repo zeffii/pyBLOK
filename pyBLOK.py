@@ -63,7 +63,7 @@ blok_dict = {
         'P6-P17': {'envelope': [0.5 for i in range(12)]}  # maybe hard-code these instead?
     },
     'LFO': {
-        'TYPE':  3,
+        'TYPE': 3,
         'P0': {'frequency': 0.5},
         'P1': {'amp': 0.5},
         'P2': {'shape': 0.5} # (enum [Sine, Tri, Saw, Square])
@@ -138,197 +138,132 @@ blok_dict = {
         'P4': {'shape': 0.5}  # (enum [Sine, Tri, Saw, Square])
     },
     'Sampler': {
-        'TYPE': 58
+        'TYPE': 58,
         'P0': {'tuning': 0.5},
         'P1': {'amp': 0.5}
+    },
+    'Filter': {
+        'TYPE': 1,
+        'P0': {'cutoff': 0.5},
+        'P1': {'resonance': 0.0},
+        'P2': {'kind': 0.0}  # (enum [LowPass, HighPass, BandPass, BandReject])
+    },
+    'Amplifier': {
+        'TYPE': 6,
+        'P0': {'factor': 0.5}
+    },
+    'Waveshaper': {
+        'TYPE': 24,
+        'P0': {'scale': 0.5},
+        'P1': {'offset': 0.5},
+        'P2-P129': {'gradient': [i/127 for i in range(127)]}  # hardcode? import? offer presets?
+    },
+    'Delay': {
+        'TYPE': 19,
+        'P0': {'time': 0.5}, # (249ms)
+        'P1': {'feedback': 0.0}
+    },
+    'Keytrk.Delay': {
+        'TYPE': 20,
+        'P0': {'time': 0.5},
+        'P1': {'feedback': 0.0}
+    },
+    'Filter.Delay': {
+        'TYPE': 21,
+        'P0': {'time': 0.5},
+        'P1': {'feedback': 0.0},
+        'P2': {'cutoff': 0.5}
+    },
+    'Invert': {
+        'TYPE': 27
+    },
+    'Rescale': {
+        'TYPE': 26,
+        'P0': {'factor': 1.0},
+        'P1': {'offset': 0.5}
+    },
+    'Bit.Crusher': {
+        'TYPE': 34,
+        'P0': {'bits': 0.0} #  20-0
+    },
+    'Clipper': {
+        'TYPE': 40,
+        'P0': {'upper.Lim': 1.0},
+        'P1': {'lower.Lim': 0.0}
+    },
+    'VU.Tracker': {
+        'TYPE': 41,
+        'P0': {'decay': 0.5}, # (445ms)
+        'P1': {'peak': 1.0} # (bool)   
+    },
+    'Xfade': {
+        'TYPE': 46,
+        'P0': {'amp1': 0.5},
+        'P1': {'amp2': 0.5},
+        'P2': {'mix': 0.5},
+        'P3': {'audio': 1.0}
+    },
+    'Env.Trigger': {
+        'TYPE': 51,
+        'P0': {'pregain': 1.0}, #  (6.02dB)
+        'P1': {'attack': 0.5}, #  (445ms)
+        'P2': {'release': 0.5}, #  (445ms)
+        'P3': {'Trig Level': 0.5}, #  (-12dB)
+        'P4': {'Rel Level': 1.0},  
+        'P5': {'Mod Scale': 1.0}  
+    },    
+    'Dyn.Follower': {
+        'TYPE': 54,
+        'P0': {'pregain': 1.0}, #  (6.02dB)
+        'P1': {'attack': 0.5}, #  (445ms)
+        'P2': {'release': 0.5}, #  (445ms)
+        'P3': {'thres.level': 0.5}, #  (-12dB)
+        'P4': {'thres.ratio': 0.2},
+        'P5': {'mod.scale': 1.0}
+    },    
+    'Filter2': {
+        'TYPE': 56,
+        'P0': {'cutoff': 0.5}, #  (704Hz)
+        'P1': {'resonance': 0.0},
+        'P2': {'kind': 0.0}, # (enum [LowPass, HighPass, BandPass, BandReject])
+        'P3': {'keytrack': 0.0}, #  (bool)
+    },    
+    'bandEQ': {
+        'TYPE': 57
+        'P0': {'kind': 0.0}, # (enum [Off, peak, low, high]),
+        'P1': {'freq': 0.5}, #  (704Hz)
+        'P2': {'width': 0.5}, # 
+        'P3': {'amp': 0.0}, # 
+        'P4': {'kind': 0.0}, # (enum [Off, peak, low, high]),
+        'P5': {'freq': 0.5}, #  (704Hz)
+        'P6': {'width': 0.5}, # 
+        'P7': {'amp': 0.0}, # 
+        'P8': {'kind': 0.0}, # (enum [Off, peak, low, high]),
+        'P9': {'freq': 0.5}, #  (704Hz)
+        'P10': {'width': 0.5}, # 
+        'P11': {'amp': 0.0} #    
     }
+    'Mono.Out': {
+        'TYPE': 0,
+        'P0': {'volume': 0.5}
+    },
+    'Stereo.Out': {
+        'TYPE': 25,
+        'P0': {'pan': 0.5},
+        'P1': {'volume': 0.5}
+    },
+    'Arp': {
+        'TYPE': 44,
+        'P0': {'speed': 1.0},
+        'P1': {'ticks': 1.0},
+        'P2': {'octaves': 0.5}
+         #  this might be off by one, the progress indicator may be p3..
+         # p3,6,9...49  down   0.0 ... 1.0  // default 0.0 (bool)
+         # p4,7,10..50  note   0.0 ... 1.0  // default 0.5
+         # p5,8,11..51  up     0.0 ... 1.0  // default 0.0 (bool)
+    }
+}
 
-
-### Modifiers
-
-#### Filter
-'''
-        'TYPE': 1"
-   - P0:    Cutoff      0.0 ... 1.0  // default 0.5
-   - P1:    Resonance   0.0 ... 1.0  // default 0.0
-   - P2:    kind                     // (enum)
-            - Low Pass   "0.000000"
-            - HighPass   "0.333333"
-            - BandPass   "0.5"
-            - BandReject "1.0"
-
-'''
-
-#### Amplifier
-'''
-        'TYPE': 6"
-   - P0:    Factor      0.0 ... 1.0  // default 0.5
-
-'''
-
-#### Waveshaper
-'''
-        'TYPE': 24"
-   - P0:    Scale       0.0 ... 1.0  // default 0.5
-   - P1:    Offset      0.0 ... 1.0  // default 0.5
-   - P2-129 Gradient    [0.0 .. 1.0, ..]
-
-'''
-
-#### Delay
-'''
-        'TYPE': 19"
-   - P0:    Time        0.0 ... 1.0  // default 0.5    (249ms)
-   - P1:    Feedback    0.0 ... 1.0  // default 0.0
-'''
-
-#### Keytracked Delay
-'''
-        'TYPE': 20"
-   - P0:    Time        0.0 ... 1.0  // default 0.5
-   - P1:    Feedback    0.0 ... 1.0  // default 0.0
-'''
-
-#### Filter Delay (keytracked)
-'''
-        'TYPE': 21"
-   - P0:    Time        0.0 ... 1.0  // default 0.5
-   - P1:    Feedback    0.0 ... 1.0  // default 0.0
-   - P2:    Cutoff      0.0 ... 1.0  // default 0.5
-
-'''
-
-#### Invert
-'''
-        'TYPE': 27"
-
-'''
-
-#### Rescale
-'''
-        'TYPE': 26"
-   - P0:    Factor      0.0 ... 1.0  // default 1.0
-   - P1:    Offset      0.0 ... 1.0  // default 0.5
-'''
-
-#### Bit Crusher
-'''
-        'TYPE': 34"
-   - P0:    Bits        0.0 ... 1.0  // default 0.0  20-0
-'''
-#### Clipper
-'''
-        'TYPE': 40"
-   - P0     Upper.Lim   0.0 ... 1.0  // default 1.0
-   - P1     Lower.Lim   0.0 ... 1.0  // default 0.0
-
-'''
-#### VU Tracker
-'''
-        'TYPE': 41"
-   - P0     Decay       0.0 ... 1.0  // default 0.5 (445ms)
-   - P1     peak        0.0 ... 1.0  // default 1.0 (bool)   
-'''
-
-#### Crossfade
-'''
-        'TYPE': 46"
-   - P0     amp1          0.0 ... 1.0  // default 0.5
-   - P1     amp2          0.0 ... 1.0  // default 0.5
-   - P2     mix           0.0 ... 1.0  // default 0.5
-   - P3     Audio (AR,CR) 0.0 ... 1.0  // default 1.0
-'''
-
-#### Env Trigger
-'''
-        'TYPE': 51"
-   - P0     pregain      0.0 ... 1.0  // default 1.0 (6.02dB)
-   - P1     attack       0.0 ... 1.0  // default 0.5 (445ms)
-   - P2     release      0.0 ... 1.0  // default 0.5 (445ms)
-   - P3     Trig Level   0.0 ... 1.0  // default 0.5 (-12dB)
-   - P4     Rel Level    0.0 ... 1.0  // default 1.0
-   - P5     Mod Scale    0.0 ... 1.0  // default 1.0
-'''
-
-#### Dyn Follower
-'''
-        'TYPE': 54"
-   - P0     pregain      0.0 ... 1.0  // default 1.0 (6.02dB)
-   - P1     attack       0.0 ... 1.0  // default 0.5 (445ms)
-   - P2     release      0.0 ... 1.0  // default 0.5 (445ms)
-   - P3     Thres.Level  0.0 ... 1.0  // default 0.5 (-12dB)
-   - P4     Thres.Ratio  0.0 ... 1.0  // default 0.2
-   - P5     Mod Scale    0.0 ... 1.0  // default 1.0
-'''
-
-#### Filter 2
-'''
-        'TYPE': 56"
-   - P0     Cutoff       0.0 ... 1.0  // default 0.5 (704Hz)
-   - P1     Resonance    0.0 ... 1.0  // default 0.0
-   - P2     kind                      // (enum)
-            - Low Pass   "0.000000"
-            - HighPass   "0.333333"
-            - BandPass   "0.500000"
-            - BandReject "1.0"
-   - P3     keytrack     0.0 ... 1.0  // default 0.0 (bool)
-'''
-
-#### 3 band EQ
-'''
-        'TYPE': 57"
-   - P0     kind                      // (enum) 
-            - Off        "0.000000"
-            - peak       "0.333333"
-            - low        "0.500000"
-            - high       "1.000000"
-   - P1     Freq         0.0 ... 1.0  // default 0.5 (704Hz)
-   - P2     width        0.0 ... 1.0  // default 0.5
-   - P3     Amp          0.0 ... 1.0  // default 0.0
-   - P4     kind                      // (enum) 
-            - Off        "0.000000"
-            - peak       "0.333333"
-            - low        "0.500000"
-            - high       "1.000000"
-   - P5     Freq         0.0 ... 1.0  // default 0.5 (704Hz)
-   - P6     width        0.0 ... 1.0  // default 0.5
-   - P7     Amp          0.0 ... 1.0  // default 0.0
-   - P8     kind                      // (enum) 
-            - Off        "0.000000"
-            - peak       "0.333333"
-            - low        "0.500000"
-            - high       "1.000000"
-   - P9     Freq         0.0 ... 1.0  // default 0.5 (704Hz)
-   - P10    width        0.0 ... 1.0  // default 0.5
-   - P11    Amp          0.0 ... 1.0  // default 0.0   
-'''
-
-### Output
-
-#### Mono Out
-
-'''
-  type 0  
-  p0  Volume 0.5
-'''
-#### Stereo Out
-'''
-  type 25  
-  p0  Pan 0.5
-  p1  Volume 0.5
-'''
-#### Arp
-'''
-  // todo... but backburner
-  type 44
-  p0   speed
-  p1   ticks
-  p2   octaves
-  // this might be off by one, the progress indicator may be p3..
-  p3,6,9...49  down   0.0 ... 1.0  // default 0.0 (bool)
-  p4,7,10..50  note   0.0 ... 1.0  // default 0.5
-  p5,8,11..51  up     0.0 ... 1.0  // default 0.0 (bool)
-'''
 ### Connections
 '''
 These seem to be declared so
