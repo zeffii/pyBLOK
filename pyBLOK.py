@@ -37,14 +37,14 @@ class pBlk:
 
 blok_dict = {
    
-   'Env.basic': {
+    'Env.basic': {
         'TYPE': 2,
         'P0': {'attack': 0.0},
         'P1': {'decay': 0.2},
         'P2': {'sustain': 0.3},
         'P3': {'release': 0.5}
     },
-   'Env.custom': {
+    'Env.custom': {
         'TYPE': 23,
         'P0': {'speed': 0.6},
         'P1': {'loop': 0.2}, # (bool, off)
@@ -52,7 +52,7 @@ blok_dict = {
         'P3': {'loop_pos': 0.5},
         'P4-P195': {'envelope': [0.5 for i in range(191)]}
     },
-   'Env.advanced': {
+    'Env.advanced': {
         'TYPE': 55,
         'P0': {'attack': 0.1},
         'P1': {'decay': 0.2},
@@ -60,136 +60,115 @@ blok_dict = {
         'P3': {'release': 0.5},
         'P4': {'amount': 1.0},
         'P5': {'sust.decay': 0.5},
-        'P6-P17': {'envelope': [0.5 for i in range(12)]}  # maybe hard-code these instead..
+        'P6-P17': {'envelope': [0.5 for i in range(12)]}  # maybe hard-code these instead?
     },
-   'LFO': {
+    'LFO': {
         'TYPE':  3,
         'P0': {'frequency': 0.5},
         'P1': {'amp': 0.5},
         'P2': {'shape': 0.5} # (enum [Sine, Tri, Saw, Square])
     },
-   'Knob.int': {
+    'Knob.int': {
         'TYPE': 8,
         'P0': {'range': 0.5}
-   },
-   'Knob.ext': {
-        'TYPE': [13,14,15,16,28,29,30,31],  # online one of each may exist.
+    },
+    'Knob.ext': {
+        'TYPE': [13,14,15,16,28,29,30,31],  # only one of each may exist.
         'P0': {'range': 0.5}
-   },
-   'Velocity': {
+    },
+    'Velocity': {
         'TYPE': 17
-   },
-   'Keytrack': {
+    },
+    'Keytrack': {
         'TYPE': 33,
-        'P0-P127': {'range': [i/128 for i in range(128)]}
-   },
-   'Random': {'TYPE': 35},
-   'Aftertouch': {'TYPE': 48},
-   'Mod.wheel': {'TYPE': 47},
-   'Osc': {
+        'P0-P127': {'range': [i/128 for i in range(128)]}  #  maybe hardcode instead?
+    },
+    'Random': {'TYPE': 35},
+    'Aftertouch': {'TYPE': 48},
+    'Mod.wheel': {'TYPE': 47},
+    'Osc': {
         'TYPE': 4,
         'P0': {'tuning': 0.5},
         'P1': {'amp': 0.5},
         'P2': {'shape':  0.5} # (enum [Sine, Tri, Saw, Square])
-   },
-   'SubOsc': {
+    },
+    'SubOsc': {
         'TYPE': 18,
         'P0': {'tuning': 0.5},
         'P1': {'amp': 0.5},
         'P2': {'shape': 0.5}  # (enum [Sine, Tri, Saw, Square])
    },
-   'Fixed.Osc': {
+    'Fixed.Osc': {
         'TYPE':  10,
         'P0': {'tuning': 0.5},
         'P1': {'amp': 0.5},
         'P2': {'shape': 0.0}  # (enum [Sine, Tri, Saw, Square])
     },
-    
-#### Hyper Oscillator
-'''
-   - TYPE:  "32"
-   - P0:    amp         0.0 ... 1.0  // default 0.5
-   - P1:    tuning      0.0 ... 1.0  // default 0.5
-   - P2:    diffuse     0.0 ... 1.0  // default 0.5
-   - P3:    spread      0.0 ... 1.0  // default 0.5
-   - P4:    shape                    // default 0.5 (enum)
-            - Sine      "0.000000"
-            - Tri       "0.333333"
-            - Saw       "0.500000"
-            - Square    "1.000000"
-'''
+    'Hyper.Osc': {
+        'TYPE': 32,
+        'P0': {'amp': 0.5},
+        'P1': {'tuning': 0.5},
+        'P2': {'diffuse': 0.5},
+        'P3': {'spread': 0.5},
+        'P4': {'shape': 0.5}  # (enum [Sine, Tri, Saw, Square])
+    },
+    'Noise.Osc': {
+        'TYPE': 7, 
+        'P0': {'amp': 0.5}
+    }, 
+    'Impulse': {
+        'TYPE': 39, 
+        'P0': {'amp': 1.0}
+    },
+    'Sync.Osc': {
+        'TYPE': 43,
+        'P0': {'amp': 0.5},
+        'P1': {'tuning': 0.5},
+        'P2': {'amount': 0.5},
+        'P3': {'sharpness': 0.5},
+        'P4': {'phase.reset' 0.0},
+        'P5': {'shape': 0.5}  # (enum [Sine, Tri, Saw, Square])
+    },
+    'PWM.Osc': {
+        'TYPE': 42,
+        'P0': {'amp': 0.5},
+        'P1': {'tuning': 0.5},
+        'P2': {'pulsewidth': 0.5},
+        'P3': {'phase.reset': 0.0},
+        'P4': {'shape': 0.5}  # (enum [Sine, Tri, Saw, Square])
+    },
+    'Sampler': {
+        'TYPE': 58
+        'P0': {'tuning': 0.5},
+        'P1': {'amp': 0.5}
+    }
 
-#### Noise Oscillator
-'''
-   - TYPE:  "7"
-   - P0:    amp         0.0 ... 1.0  // default 0.5
-'''
-
-#### Impulse
-'''
-   - TYPE:  "39"
-   - P0:    amp         0.0 ... 1.0  // default 1.0
-'''
-
-#### Sync Oscillator
-'''
-   - TYPE:  "43"
-   - P0:    amp         0.0 ... 1.0  // default 0.5
-   - P1:    tuning      0.0 ... 1.0  // default 0.5
-   - P2:    amount      0.0 ... 1.0  // default 0.5
-   - P3:    sharpness   0.0 ... 1.0  // default 0.5
-   - P4:    phase.reset 0.0 ... 1.0  // default 0.0
-   - P5:    shape                    // default 0.5 (enum)
-            - Sine      "0.000000"
-            - Tri       "0.333333"
-            - Saw       "0.500000"
-            - Square    "1.000000"
-'''
-#### PWM Oscillator
-'''
-   - TYPE:  "42"
-   - P0:    amp         0.0 ... 1.0  // default 0.5
-   - P1:    tuning      0.0 ... 1.0  // default 0.5
-   - P2:    pulsewidth  0.0 ... 1.0  // default 0.5
-   - P3:    phase.reset 0.0 ... 1.0  // default 0.0
-   - P4:    shape                    // default 0.5 (enum)
-            - Sine      "0.000000"
-            - Tri       "0.333333"
-            - Saw       "0.500000"
-            - Square    "1.000000"
-'''
-#### Sampler (basic)
-'''
-   - TYPE:  "58"
-   - P0:    tuning      0.0 ... 1.0  // default 0.5
-   - P1:    amp         0.0 ... 1.0  // default 0.5
-'''
 
 ### Modifiers
 
 #### Filter
 '''
-   - TYPE:  "1"
+        'TYPE': 1"
    - P0:    Cutoff      0.0 ... 1.0  // default 0.5
    - P1:    Resonance   0.0 ... 1.0  // default 0.0
    - P2:    kind                     // (enum)
             - Low Pass   "0.000000"
             - HighPass   "0.333333"
-            - BandPass   "0.555555"
+            - BandPass   "0.5"
             - BandReject "1.0"
 
 '''
 
 #### Amplifier
 '''
-   - TYPE:  "6"
+        'TYPE': 6"
    - P0:    Factor      0.0 ... 1.0  // default 0.5
 
 '''
 
 #### Waveshaper
 '''
-   - TYPE:  "24"
+        'TYPE': 24"
    - P0:    Scale       0.0 ... 1.0  // default 0.5
    - P1:    Offset      0.0 ... 1.0  // default 0.5
    - P2-129 Gradient    [0.0 .. 1.0, ..]
@@ -198,21 +177,21 @@ blok_dict = {
 
 #### Delay
 '''
-   - TYPE:  "19"
+        'TYPE': 19"
    - P0:    Time        0.0 ... 1.0  // default 0.5    (249ms)
    - P1:    Feedback    0.0 ... 1.0  // default 0.0
 '''
 
 #### Keytracked Delay
 '''
-   - TYPE:  "20"
+        'TYPE': 20"
    - P0:    Time        0.0 ... 1.0  // default 0.5
    - P1:    Feedback    0.0 ... 1.0  // default 0.0
 '''
 
 #### Filter Delay (keytracked)
 '''
-   - TYPE:  "21"
+        'TYPE': 21"
    - P0:    Time        0.0 ... 1.0  // default 0.5
    - P1:    Feedback    0.0 ... 1.0  // default 0.0
    - P2:    Cutoff      0.0 ... 1.0  // default 0.5
@@ -221,39 +200,39 @@ blok_dict = {
 
 #### Invert
 '''
-   - TYPE:  "27"
+        'TYPE': 27"
 
 '''
 
 #### Rescale
 '''
-   - TYPE:  "26"
+        'TYPE': 26"
    - P0:    Factor      0.0 ... 1.0  // default 1.0
    - P1:    Offset      0.0 ... 1.0  // default 0.5
 '''
 
 #### Bit Crusher
 '''
-   - TYPE:  "34"
+        'TYPE': 34"
    - P0:    Bits        0.0 ... 1.0  // default 0.0  20-0
 '''
 #### Clipper
 '''
-   - TYPE:  "40"
+        'TYPE': 40"
    - P0     Upper.Lim   0.0 ... 1.0  // default 1.0
    - P1     Lower.Lim   0.0 ... 1.0  // default 0.0
 
 '''
 #### VU Tracker
 '''
-   - TYPE:  "41"
+        'TYPE': 41"
    - P0     Decay       0.0 ... 1.0  // default 0.5 (445ms)
    - P1     peak        0.0 ... 1.0  // default 1.0 (bool)   
 '''
 
 #### Crossfade
 '''
-   - TYPE:  "46"
+        'TYPE': 46"
    - P0     amp1          0.0 ... 1.0  // default 0.5
    - P1     amp2          0.0 ... 1.0  // default 0.5
    - P2     mix           0.0 ... 1.0  // default 0.5
@@ -262,7 +241,7 @@ blok_dict = {
 
 #### Env Trigger
 '''
-   - TYPE:  "51"
+        'TYPE': 51"
    - P0     pregain      0.0 ... 1.0  // default 1.0 (6.02dB)
    - P1     attack       0.0 ... 1.0  // default 0.5 (445ms)
    - P2     release      0.0 ... 1.0  // default 0.5 (445ms)
@@ -273,7 +252,7 @@ blok_dict = {
 
 #### Dyn Follower
 '''
-   - TYPE:  "54"
+        'TYPE': 54"
    - P0     pregain      0.0 ... 1.0  // default 1.0 (6.02dB)
    - P1     attack       0.0 ... 1.0  // default 0.5 (445ms)
    - P2     release      0.0 ... 1.0  // default 0.5 (445ms)
@@ -284,7 +263,7 @@ blok_dict = {
 
 #### Filter 2
 '''
-   - TYPE:  "56"
+        'TYPE': 56"
    - P0     Cutoff       0.0 ... 1.0  // default 0.5 (704Hz)
    - P1     Resonance    0.0 ... 1.0  // default 0.0
    - P2     kind                      // (enum)
@@ -297,7 +276,7 @@ blok_dict = {
 
 #### 3 band EQ
 '''
-   - TYPE:  "57"
+        'TYPE': 57"
    - P0     kind                      // (enum) 
             - Off        "0.000000"
             - peak       "0.333333"
