@@ -9,147 +9,102 @@ Square = 1.000000
 
 class pBlk:
 
-   defaults = ['ID TYPE X Y POS'].split(' ')
+    defaults = ['ID TYPE X Y POS'].split(' ')
 
-   def __init__(self, name, xy):
-      self.name = name
-      self.TYPE = get_type(name)
-      self.ID = get_ID()
-      self.POS = get_POS()
-      self.X = xy[0]
-      self.Y = xy[1]
+    def __init__(self, name, xy):
+        self.name = name
+        self.TYPE = get_type(name)
+        self.ID = get_ID()
+        self.POS = get_POS()
+        self.X = xy[0]
+        self.Y = xy[1]
 
-   def params(self, parameters):
-      ...
+    def params(self, parameters):
+        ...
 
-   def __str__(self):
-      ret_str = ["<BLOK"]
+    def __str__(self):
+        ret_str = ["<BLOK"]
       
-      for d in self.defaults:
-          ret_str.append("{0}=\"{1}\"".format(d, getattr(self, d)))
+        for d in self.defaults:
+            ret_str.append("{0}=\"{1}\"".format(d, getattr(self, d)))
 
-      for idx, p in enumerate(self.params):
-         ret_str.append("P{0}=\"{1}\"".format(str(idx), p))
+        for idx, p in enumerate(self.params):
+            ret_str.append("P{0}=\"{1}\"".format(str(idx), p))
       
-      ret_str.append('/>')
+        ret_str.append('/>')
 
-      return ' '.join(ret_str)
-
-
-### CONTROL
+        return ' '.join(ret_str)
 
 blok_dict = {
    
-   # Control
-
    'Env.basic': {
-      'TYPE': 2,
-      'P0': {'attack': 0.0},
-      'P1': {'decay': 0.2},
-      'P2': {'sustain': 0.3},
-      'P3': {'release': 0.5}
-      },
+        'TYPE': 2,
+        'P0': {'attack': 0.0},
+        'P1': {'decay': 0.2},
+        'P2': {'sustain': 0.3},
+        'P3': {'release': 0.5}
+    },
    'Env.custom': {
-      'TYPE': 23,
-      'P0': {'speed': 0.6},
-      'P1': {'loop': 0.2}, # (bool, off)
-      'P2': {'sustain': 0.3}, # (bool, off)
-      'P3': {'loop_pos': 0.5},
-      'P4-195': {'envelope': [0.5 for i in range(191)]}
-      },
+        'TYPE': 23,
+        'P0': {'speed': 0.6},
+        'P1': {'loop': 0.2}, # (bool, off)
+        'P2': {'sustain': 0.3}, # (bool, off)
+        'P3': {'loop_pos': 0.5},
+        'P4-P195': {'envelope': [0.5 for i in range(191)]}
+    },
    'Env.advanced': {
-      'TYPE': 55,
-      'P0': {'attack': 0.1},
-      'P1': {'decay': 0.2},
-      'P2': {'sustain': 0.4},
-      'P3': {'release': 0.5},
-      'P4': {'amount': 1.0},
-      'P5': {'sust.decay': 0.5},
-      'P6-17': {'envelope': [0.5 for i in range(12)]}  # maybe hard-code these instead..
-      },
+        'TYPE': 55,
+        'P0': {'attack': 0.1},
+        'P1': {'decay': 0.2},
+        'P2': {'sustain': 0.4},
+        'P3': {'release': 0.5},
+        'P4': {'amount': 1.0},
+        'P5': {'sust.decay': 0.5},
+        'P6-P17': {'envelope': [0.5 for i in range(12)]}  # maybe hard-code these instead..
+    },
    'LFO': {
-      'TYPE':  3,
-      'P0': {'frequency': 0.5},
-      'P1': {'amp': 0.5},
-      'P2': {'shape': 0.5} # (enum [Sine, Tri, Saw, Square])
+        'TYPE':  3,
+        'P0': {'frequency': 0.5},
+        'P1': {'amp': 0.5},
+        'P2': {'shape': 0.5} # (enum [Sine, Tri, Saw, Square])
+    },
+   'Knob.int': {
+        'TYPE': 8,
+        'P0': {'range': 0.5}
    },
-   'knob.int': {
-      'TYPE': 8,
-      'P0': {'range': 0.5}
+   'Knob.ext': {
+        'TYPE': [13,14,15,16,28,29,30,31],  # online one of each may exist.
+        'P0': {'range': 0.5}
    },
-   'knob.ext': {
-      'TYPE': [13,14,15,16,28,29,30,31],  # online one of each may exist.
-      'P0': {'range': 0.5}
+   'Velocity': {
+        'TYPE': 17
    },
-
-
-}
-
-
-
-'''
-
-#### Velocity
-'''
-   - TYPE:  "17"
-'''
-#### Keytrack
-'''
-   - TYPE:  "33"
-   - P0-127:range      0.0 ... 1.0  // default gradient up
-'''
-#### Random
-'''
-   - TYPE:  "35"
-'''
-#### Aftertouch
-'''
-   - TYPE:  "48"
-'''
-#### ModWheel
-'''
-   - TYPE:  "47"
-'''
-
-
-### GENERATE 
-
-#### Oscillator
-'''
-   - TYPE:  "4"
-   - P0:    tuning      0.0 ... 1.0  // default 0.5
-   - P1:    amp         0.0 ... 1.0  // default 0.5
-   - P2:    shape                    // default 0.5 (enum)
-            - Sine      "0.000000"
-            - Tri       "0.333333"
-            - Saw       "0.500000"
-            - Square    "1.000000"
-'''
-
-#### Sub Oscillator
-'''
-   - TYPE:  "18"
-   - P0:    tuning      0.0 ... 1.0  // default 0.5
-   - P1:    amp         0.0 ... 1.0  // default 0.5
-   - P2:    shape                    // default 0.5 (enum)
-            - Sine      "0.000000"
-            - Tri       "0.333333"
-            - Saw       "0.500000"
-            - Square    "1.000000"
-'''
-
-#### Fixed Oscillator
-'''
-   - TYPE:  "10"
-   - P0:    tuning      0.0 ... 1.0  // default 0.5
-   - P1:    amp         0.0 ... 1.0  // default 0.5
-   - P2:    shape                    // default 0.0 (enum)
-            - Sine      "0.000000"
-            - Tri       "0.333333"
-            - Saw       "0.500000"
-            - Square    "1.000000"
-'''
-
+   'Keytrack': {
+        'TYPE': 33,
+        'P0-P127': {'range': [i/128 for i in range(128)]}
+   },
+   'Random': {'TYPE': 35},
+   'Aftertouch': {'TYPE': 48},
+   'Mod.wheel': {'TYPE': 47},
+   'Osc': {
+        'TYPE': 4,
+        'P0': {'tuning': 0.5},
+        'P1': {'amp': 0.5},
+        'P2': {'shape':  0.5} # (enum [Sine, Tri, Saw, Square])
+   },
+   'SubOsc': {
+        'TYPE': 18,
+        'P0': {'tuning': 0.5},
+        'P1': {'amp': 0.5},
+        'P2': {'shape': 0.5}  # (enum [Sine, Tri, Saw, Square])
+   },
+   'Fixed.Osc': {
+        'TYPE':  10,
+        'P0': {'tuning': 0.5},
+        'P1': {'amp': 0.5},
+        'P2': {'shape': 0.0}  # (enum [Sine, Tri, Saw, Square])
+    },
+    
 #### Hyper Oscillator
 '''
    - TYPE:  "32"
