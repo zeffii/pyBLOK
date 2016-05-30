@@ -36,6 +36,8 @@ class pBlk:
     this will contain the members declared in __init__.
 
     '''
+    # pylint: disable=too-many-instance-attributes
+
     standard = 'ID TYPE X Y POS'.split(' ')
 
 
@@ -50,8 +52,28 @@ class pBlk:
         self.params = self.make_params()
 
     def make_params(self):
+        '''
+        retructures simple BLOK dict
+        '''
         parameter_dict = {}
-        ...
+        for p in self.all_params.keys():
+
+            if p == 'TYPE':
+                continue
+
+            if '-' in p:
+                start, finish = p.split('-')
+                p_start, p_finish = int(start[1:]), int(finish[1:])
+                param_list = self.params.get(p)
+
+                for i in range(p_finish-p_start):
+                    idx = i + p_start
+                    my_val = param_list[i]
+                    parameter_dict[idx] = my_val
+            else:
+                idx = int(p[1:])
+                parameter_dict[idx] = self.all_params.get(p)
+
 
     def set_params(self, parameters):
         '''to be used when setting non defaults'''
@@ -70,19 +92,9 @@ class pBlk:
         for d in self.standard:
             ret_str.append("{0}=\"{1}\"".format(d, getattr(self, d)))
 
-        for idx, p in enumerate(self.params.keys()):
-            if '-' in p:
-
-                start, finish = p.split('-')
-                p_start, p_finish = int(start[1:]), int(finish[1:])
-                param_list = self.params.get(p)
-
-                for i in range(p_finish-p_start):
-                    my_val = param_list[i]
-                    ret_str.append("P{0}=\"{1}\" ".format(str(i), my_val))
-            else:
-                my_val = self.params.get(p)
-                ret_str.append("P{0}=\"{1}\" ".format(str(idx), my_val))
+        for idx, p in enumerate(self.params):
+            my_val = self.params.get(p)
+            ret_str.append("P{0}=\"{1}\" ".format(str(idx), my_val))
       
         ret_str.append('/>')
 
