@@ -30,6 +30,14 @@ def get_type(name):
     return BLOKS[name]['TYPE']
 
 
+storables = []
+
+def compile():
+    '''produce a .blkx'''
+    patches = ''.join([('    ' + str(stored) + '\n') for stored in storables])
+    print(DOC.format(globals=GLOBAL, patching=patches))
+
+
 class pBlk:
     '''
     produce an instance of a the BLOK representation.
@@ -52,6 +60,7 @@ class pBlk:
         self.params = self.make_params()
         self.remaps = {}
         self.map_paramindex_from_parameters()  # fills remaps dict
+        storables.append(self)
 
     def make_params(self):
         '''
@@ -120,7 +129,7 @@ class pBlk:
 
         for idx, p in enumerate(self.params):
             my_val = self.params.get(p)
-            ret_str.append("P{0}=\"{1}\"".format(str(idx), my_val))
+            ret_str.append("P{0}=\"{1:6f}\"".format(str(idx), my_val))
       
         ret_str.append('/>')
 
@@ -145,6 +154,8 @@ class Connect:
             self.INPUTID = self.TO.get_index_from_socketname(socket)
         else:
             print('from {0} to {1}.{2} failed..'.format(self.FROM, self.TO, self.INPUTID))
+        storables.append(self)
+
 
     def __str__(self):
         const = "<CONNECTION ID=\"{0}\" FROM=\"{1}\" TO=\"{2}\" INPUTID=\"{3}\" />"
@@ -155,13 +166,8 @@ SubOsc1 = pBlk('Sub.Osc', (130, 140))
 SubOsc2 = pBlk('Sub.Osc', (130, 180))
 Env1 = pBlk('Env.advanced', (30, 180))
 con1 = Connect(Env1, SubOsc2, index=1)
-
-print(SubOsc1)
-print(SubOsc2)
-print(Env1)
-print(con1)
-
-SubOsc1.params[2] = 0.3333
+SubOsc1.params[2] = 0.333333
 Env1.set_params(attack=0.88, decay=0.45, amount=0.2)
-print('edited:', SubOsc1)
-print('edited:', Env1)
+
+
+compile()

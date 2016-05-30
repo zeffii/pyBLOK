@@ -18,43 +18,14 @@ low = 0.500000
 high = 1.000000
 '''
 
-DOC = '''
+DOC = '''\
 <?xml version="1.0" standalone="no" ?>
-<storables>
-    {global}
-    {patching}
-</storables>
+<storables>{globals}\n{patching}</storables>
 '''
 
 # it's one large non-dynamic blok (no socket inputs, only manual sliders)
 GLOBAL = '''
-   <GLOBAL 
-   ID="{0}" 
-   Param_Chorus_Enable="0.000000" 
-   Param_Chorus_Phasing="0.400000" 
-   Param_Chorus_Speed="0.400000" 
-   Param_Chorus_WetDry="0.400000" 
-   Param_Delay_Cross="0.000000" 
-   Param_Delay_Enable="0.000000" 
-   Param_Delay_Feedback="0.000000" 
-   Param_Delay_Length="0.400000" 
-   Param_Delay_Spacing="0.000000" 
-   Param_Delay_TempoSync="0.000000" 
-   Param_Delay_Type="0.000000" 
-   Param_Delay_WetDry="0.400000" 
-   Param_Polyphony="0.500000" 
-   Param_Reverb_Damping="0.300000" 
-   Param_Reverb_Decay="0.500000" 
-   Param_Reverb_Enable="0.000000" 
-   Param_Reverb_ModAmount="0.250000" 
-   Param_Reverb_ModSpeed="0.250000" 
-   Param_Reverb_Roomsize="0.500000" 
-   Param_Reverb_WetDry="0.300000" 
-   Param_Voice_Bendrange="0.500000" 
-   Param_Voice_Portamento="0.000000"
-   Param_Voice_Transpose="0.500000" />
-'''
-
+    <GLOBAL ID="2" Param_Chorus_Enable="0.000000" Param_Chorus_Phasing="0.400000" Param_Chorus_Speed="0.400000" Param_Chorus_WetDry="0.400000" Param_Delay_Cross="0.000000" Param_Delay_Enable="0.000000" Param_Delay_Feedback="0.000000" Param_Delay_Length="0.400000" Param_Delay_Spacing="0.000000" Param_Delay_TempoSync="0.000000" Param_Delay_Type="0.000000" Param_Delay_WetDry="0.400000" Param_Polyphony="0.500000" Param_Reverb_Damping="0.300000" Param_Reverb_Decay="0.500000" Param_Reverb_Enable="0.000000" Param_Reverb_ModAmount="0.250000" Param_Reverb_ModSpeed="0.250000" Param_Reverb_Roomsize="0.500000" Param_Reverb_WetDry="0.300000" Param_Voice_Bendrange="0.500000" Param_Voice_Portamento="0.000000" Param_Voice_Transpose="0.500000" />'''
 
 
 BLOKS = {
