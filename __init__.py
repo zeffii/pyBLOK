@@ -50,6 +50,8 @@ class pBlk:
         self.Y = xy[1]
         self.all_params = BLOKS[self.name]
         self.params = self.make_params()
+        self.remaps = {}
+        self.map_paramindex_from_parameters()  # fills remaps dict
 
     def make_params(self):
         '''
@@ -81,9 +83,27 @@ class pBlk:
         return parameter_dict
 
 
-    def set_params(self, parameters):
+    def map_paramindex_from_parameters(self):
+        ''' things '''
+
+        def get_innerdict_key(outer_dict):
+            '''gets first key/value of the inner dict '''
+            return [i for i in outer_dict.keys()][0]
+
+        for m in self.all_params.keys():
+            if m == 'TYPE':
+                continue
+            if '-' in m:
+                continue
+            name = get_innerdict_key(self.all_params[m])    
+            self.remaps[name] = int(m[1:])
+
+
+    def set_params(self, **parameters):
         '''to be used when setting non defaults'''
-        pass
+        for name, value in parameters.items():
+            idx = self.remaps[name]
+            self.params[idx] = value
 
     def get_index_from_socketname(self, socketname):
         '''ta -- not implemented yet'''
@@ -142,4 +162,6 @@ print(Env1)
 print(con1)
 
 SubOsc1.params[2] = 0.3333
-print(SubOsc1)
+Env1.set_params(attack=0.88, decay=0.45, amount=0.2)
+print('edited:', SubOsc1)
+print('edited:', Env1)
