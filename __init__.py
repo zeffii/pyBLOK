@@ -27,7 +27,7 @@ def get_pos():
 
 def get_type(name):
     ''' convert name to type with params'''
-    return BLOKS[name]
+    return BLOKS[name]['TYPE']
 
 
 class pBlk:
@@ -36,8 +36,8 @@ class pBlk:
     this will contain the members declared in __init__.
 
     '''
-
     standard = 'ID TYPE X Y POS'.split(' ')
+
 
     def __init__(self, name, xy):
         self.name = name
@@ -47,7 +47,11 @@ class pBlk:
         self.X = xy[0]
         self.Y = xy[1]
         self.all_params = BLOKS[self.name]
-        self.params = {}
+        self.params = self.make_params()
+
+    def make_params(self):
+        parameter_dict = {}
+        ...
 
     def set_params(self, parameters):
         '''to be used when setting non defaults'''
@@ -66,8 +70,19 @@ class pBlk:
         for d in self.standard:
             ret_str.append("{0}=\"{1}\"".format(d, getattr(self, d)))
 
-        for idx, p in enumerate(self.params.items()):
-            ret_str.append("P{0}=\"{1}\"".format(str(idx), p))
+        for idx, p in enumerate(self.params.keys()):
+            if '-' in p:
+
+                start, finish = p.split('-')
+                p_start, p_finish = int(start[1:]), int(finish[1:])
+                param_list = self.params.get(p)
+
+                for i in range(p_finish-p_start):
+                    my_val = param_list[i]
+                    ret_str.append("P{0}=\"{1}\" ".format(str(i), my_val))
+            else:
+                my_val = self.params.get(p)
+                ret_str.append("P{0}=\"{1}\" ".format(str(idx), my_val))
       
         ret_str.append('/>')
 
