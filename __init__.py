@@ -37,7 +37,7 @@ class pBlk:
 
     '''
 
-    defaults = 'ID TYPE X Y POS'.split(' ')
+    standard = 'ID TYPE X Y POS'.split(' ')
 
     def __init__(self, name, xy):
         self.name = name
@@ -46,22 +46,27 @@ class pBlk:
         self.POS = get_pos()
         self.X = xy[0]
         self.Y = xy[1]
+        self.all_params = BLOKS[self.name]
+        self.params = {}
 
-    def params(self, parameters):
-        '''ta'''
+    def set_params(self, parameters):
+        '''to be used when setting non defaults'''
         pass
 
-    def get_index_from_socketname(self, socket):
+    def get_index_from_socketname(self, socketname):
         '''ta'''
-        pass
+        if socketname == 'audio_in':
+            return 0
+        elif socketname in self.params:
+            return 1
 
     def __str__(self):
         ret_str = ["<BLOK"]
       
-        for d in self.defaults:
+        for d in self.standard:
             ret_str.append("{0}=\"{1}\"".format(d, getattr(self, d)))
 
-        for idx, p in enumerate(self.params):
+        for idx, p in enumerate(self.params.items()):
             ret_str.append("P{0}=\"{1}\"".format(str(idx), p))
       
         ret_str.append('/>')
