@@ -113,7 +113,7 @@ BLOKS = {
         'P1': {'amp': 0.5},
         'P2': {'shape':  0.5} # (enum [Sine, Tri, Saw, Square])
     },
-    'SubOsc': {
+    'Sub.Osc': {
         'TYPE': 18,
         'P0': {'tuning': 0.5},
         'P1': {'amp': 0.5},

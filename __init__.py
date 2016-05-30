@@ -4,7 +4,7 @@ docstring:
 
 '''
 
-from .blok_units import BLOKS, GLOBAL, DOC
+from blok_units import BLOKS, GLOBAL, DOC
 
 
 def next_number_generator(start=0):
@@ -53,8 +53,13 @@ class pBlk:
 
     def make_params(self):
         '''
-        retructures simple BLOK dict
+        restructures simple BLOK dict
         '''
+
+        def get_innerdict(outer_dict):
+            '''gets first key/value of the inner dict '''
+            return [i for i in outer_dict.values()][0]
+
         parameter_dict = {}
         for p in self.all_params.keys():
 
@@ -64,15 +69,16 @@ class pBlk:
             if '-' in p:
                 start, finish = p.split('-')
                 p_start, p_finish = int(start[1:]), int(finish[1:])
-                param_list = self.params.get(p)
+                param_list = get_innerdict(self.all_params.get(p))
 
-                for i in range(p_finish-p_start):
+                for i in range(p_finish-p_start+1):
                     idx = i + p_start
                     my_val = param_list[i]
                     parameter_dict[idx] = my_val
             else:
                 idx = int(p[1:])
-                parameter_dict[idx] = self.all_params.get(p)
+                parameter_dict[idx] = get_innerdict(self.all_params.get(p))
+        return parameter_dict
 
 
     def set_params(self, parameters):
@@ -80,7 +86,7 @@ class pBlk:
         pass
 
     def get_index_from_socketname(self, socketname):
-        '''ta'''
+        '''ta -- not implemented yet'''
         if socketname == 'audio_in':
             return 0
         elif socketname in self.params:
@@ -94,7 +100,7 @@ class pBlk:
 
         for idx, p in enumerate(self.params):
             my_val = self.params.get(p)
-            ret_str.append("P{0}=\"{1}\" ".format(str(idx), my_val))
+            ret_str.append("P{0}=\"{1}\"".format(str(idx), my_val))
       
         ret_str.append('/>')
 
@@ -123,3 +129,14 @@ class Connect:
     def __str__(self):
         const = "<CONNECTION ID=\"{0}\" FROM=\"{1}\" TO=\"{2}\" INPUTID=\"{3}\" />"
         return const.format(self.ID, self.FROM, self.TO, self.INPUTID)
+
+
+SubOsc1 = pBlk('Sub.Osc', (130, 140))
+SubOsc2 = pBlk('Sub.Osc', (130, 180))
+Env1 = pBlk('Env.advanced', (30, 180))
+con1 = Connect(Env1, SubOsc2, index=1)
+
+print(SubOsc1)
+print(SubOsc2)
+print(Env1)
+print(con1)
