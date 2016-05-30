@@ -140,3 +140,6 @@ print(SubOsc1)
 print(SubOsc2)
 print(Env1)
 print(con1)
+
+SubOsc1.params[2] = 0.3333
+print(SubOsc1)
