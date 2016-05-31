@@ -148,7 +148,7 @@ BLOKS = {
         'TYPE': 24,
         'P0': {'scale': 0.5},
         'P1': {'offset': 0.5},
-        'P2-P129': {'gradient': [i/127 for i in range(127)]}  # hardcode? import? offer presets?
+        'P2-P129': {'gradient': [i/128 for i in range(128)]}  # hardcode? import? offer presets?
     },
     'Delay': {
         'TYPE': 19,

@@ -3,7 +3,7 @@ docstring:
 
 
 '''
-import os
+
 from blok_units import BLOKS, GLOBAL, DOC
 
 
@@ -141,6 +141,31 @@ class pBlk:
         for name, value in parameters.items():
             idx = self.remaps[name]
             self.params[idx] = value
+
+    def set_pvector(self, parameters):
+        '''
+        Env.custom : P4-P195 "envelope" [range(4, 196)]  # 192
+        Env.advanced : P6-P17 "envelope" [range(6, 18)]  # 12
+        keytrack : P0-P127 "range" [range(128)]          # 128
+        Waveshaper : P2-P129 "gradient" [range(2, 130)]  # 128
+
+        '''
+
+        indices = {
+            'Env.custom': list(range(4, 196)),
+            'Env.advanced' : list(range(6, 18)),
+            'keytrack' : list(range(128)),         
+            'Waveshaper' : list(range(2, 130))
+        }.get(self.name)
+
+        if not len(indices) == len(parameters):
+            msg1 = 'setting pvector encountered length mismatch '
+            msg2 = 'got {0}, expected {1}'
+            print(msg1 + msg2.format(len(parameters, len(indices))))
+            return
+
+        for i, idx in enumerate(indices):
+            self.params[idx] = parameters[i]
 
     def get_index_from_socketname(self, socketname):
         '''ta -- not implemented yet'''
