@@ -7,13 +7,21 @@ docstring:
 from blok_units import BLOKS, GLOBAL, DOC
 
 
-'''
-warning: todo:
-when a blok gets an ID it should increase the ID by two, 
-when a connection gets an ID it should increase it by only one
-- this is not implemented correctly here..
+class ID_producer:
+    '''
+    when a blok gets an ID it should increase the ID by two, 
+    when a connection gets an ID it should increase it by only one
+    '''
+    idx = 0
+    def __init__(self, start=0):
+        self.idx = start
 
-'''
+    def new_id(self, origin):
+        temp_idx = self.idx
+        self.idx += {'BLOK': 2, 'CONNECTION':1}.get(origin)
+        return temp_idx
+
+
 
 def next_number_generator(start=0):
     '''makes new next number given a start'''
@@ -22,12 +30,14 @@ def next_number_generator(start=0):
         yield i
         i += 1
 
-ID_SUPPLY = next_number_generator(3)
-POS_SUPPLY = next_number_generator()
 
-def get_id():
+POS_SUPPLY = next_number_generator()
+ID_gen = ID_producer(3)
+
+
+def get_id(kind):
     '''id is used for'''
-    return next(ID_SUPPLY)
+    return ID_gen.new_id(kind)
 
 def get_pos():
     '''pos is used for'''
@@ -60,7 +70,7 @@ class pBlk:
     def __init__(self, name, xy):
         self.name = name
         self.TYPE = get_type(name)
-        self.ID = get_id()
+        self.ID = get_id('BLOK')
         self.POS = get_pos()
         self.X = xy[0]
         self.Y = xy[1]
@@ -153,7 +163,7 @@ class Connect:
     '''
 
     def __init__(self, _from, _to, socket=None, index=None):
-        self.ID = get_id()
+        self.ID = get_id('CONNECTION')
         self.FROM = _from.POS
         self.TO = _to.POS
         if index:
