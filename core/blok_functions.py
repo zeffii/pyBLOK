@@ -150,7 +150,7 @@ class pBlk:
             return 1
 
     def __str__(self):
-        ret_str = ["<BLOK"]
+        ret_str = ["<BLOCK"]
       
         for d in self.standard:
             ret_str.append("{0}=\"{1}\"".format(d, getattr(self, d)))
