@@ -3,7 +3,7 @@ docstring:
 
 
 '''
-
+import os
 from blok_units import BLOKS, GLOBAL, DOC
 
 
@@ -50,10 +50,20 @@ def get_type(name):
 
 storables = []
 
-def pCompile():
+def pCompile(path=None, silent=1):
     '''produce a .blkx'''
     patches = ''.join([('    ' + str(stored) + '\n') for stored in storables])
-    print(DOC.format(globals=GLOBAL, patching=patches))
+    doc = DOC.format(globals=GLOBAL, patching=patches)
+
+    if path:
+        with open(path, 'w') as blkx:
+            blkx.write(doc)
+        if not silent:
+            print(doc)
+    else:
+        print(doc)
+
+
 
 
 class pBlk:
