@@ -7,6 +7,14 @@ docstring:
 from blok_units import BLOKS, GLOBAL, DOC
 
 
+'''
+warning: todo:
+when a blok gets an ID it should increase the ID by two, 
+when a connection gets an ID it should increase it by only one
+- this is not implemented correctly here..
+
+'''
+
 def next_number_generator(start=0):
     '''makes new next number given a start'''
     i = start
@@ -146,8 +154,8 @@ class Connect:
 
     def __init__(self, _from, _to, socket=None, index=None):
         self.ID = get_id()
-        self.FROM = _from.ID
-        self.TO = _to.ID
+        self.FROM = _from.POS
+        self.TO = _to.POS
         if index:
             self.INPUTID = index
         elif socket:
