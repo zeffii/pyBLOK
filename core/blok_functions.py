@@ -201,7 +201,7 @@ class Connect:
         self.ID = get_id('CONNECTION')
         self.FROM = _from.POS
         self.TO = _to.POS
-        if index:
+        if isinstance(index, int):
             self.INPUTID = index
         elif socket:
             self.INPUTID = self.TO.get_index_from_socketname(socket)
