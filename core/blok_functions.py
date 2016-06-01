@@ -174,6 +174,9 @@ class pBlk:
         elif socketname in self.params:
             return 1
 
+    def index(self, idx):
+        return (self, idx)
+
     def __str__(self):
         ret_str = ["<BLOCK"]
       
