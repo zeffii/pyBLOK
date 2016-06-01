@@ -188,6 +188,10 @@ class pBlk:
 
         return ' '.join(ret_str)
 
+    def __gt__(self, other):
+        if isinstance(other, tuple):
+            Connect(self, other[0], index=other[1])
+
 
 class Connect:
 
