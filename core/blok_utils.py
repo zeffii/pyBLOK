@@ -1,3 +1,10 @@
+'''
+get_rate_from_herz:
+
+is a crude approximation of the curve, i didn't yet find the right curve(s) so here is a basic table lookup
+with interpolations.
+'''
+
 series = [22, 31, 44, 62, 88, 124, 176, 249, 352, 499, 704, 999, 1408, 1999, 2816, 3998, 5632, 7997, 11264, 15994, 22528]
 
 def between(hz, a, b):
