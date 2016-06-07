@@ -1,5 +1,5 @@
 '''
-get_rate_from_herz:
+rate_from_herz:
 
 is a crude approximation of the curve, i didn't yet find the right curve(s) so here is a basic table lookup
 with interpolations.
@@ -16,7 +16,7 @@ def between(hz, a, b):
 def remap(old_min, old_max, old_val, new_min, new_max):
     return (((old_val - old_min) * (new_max - new_min)) / (old_max - old_min)) + new_min
 
-def get_rate_from_herz(Hz):
+def rate_from_herz(Hz):
     if Hz < 22:
         return 0.0
     if Hz > 22528:
