@@ -123,24 +123,25 @@ class pBlk:
     def map_paramindex_from_parameters(self):
         ''' things '''
 
-        def get_innerdict_key(outer_dict):
-            '''gets first key/value of the inner dict '''
-            return [i for i in outer_dict.keys()][0]
-
         for m in self.all_params.keys():
             if m == 'TYPE':
                 continue
-            if '-' in m:
-                continue
-            name = get_innerdict_key(self.all_params[m])    
-            self.remaps[name] = int(m[1:])
+            if m == 'params':
+                for idx, name, value, can_connect in self.all_params['params']:
+                    if idx >= 0:
+                        self.remaps[name] = idx
 
 
     def set_params(self, **parameters):
         '''to be used when setting non defaults'''
         for name, value in parameters.items():
             idx = self.remaps[name]
-            self.params[idx] = value
+            if isinstance(idx, tuple):
+                start, end = idx
+                for i in range(start, end):
+                    ...
+            else:
+                self.params[idx] = value
 
     def set_pvector(self, parameters):
         '''
