@@ -19,7 +19,13 @@ peak = 0.333333
 low = 0.500000
 high = 1.000000
 
-    params are declared thus:
+    TYPE: 
+
+        each BLOK unit has a type parameter used to distinguish one BLOK from another.
+        All Amplifier BLOKs have the same TYPE, but an Osc and and Amplifier have 
+        different Types. 
+
+    params:
 
         [Pnum, Pname, default, can_input]
           |
@@ -199,74 +205,101 @@ BLOKS = {
     },
     'Waveshaper': {
         'TYPE': 24,
-        'params': [],
-        'P0': {'scale': 0.5},
-        'P1': {'offset': 0.5},
-        'P2-P129': {'gradient': [i/128 for i in range(128)]}  # hardcode? import? offer presets?
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'scale', 0.5, True],
+            [1, 'offset', 0.5, True],
+            [(2, 129), 'gradient', [i/128 for i in range(128)], False]  # hardcode? import? offer presets?
+        ]
     },
     'Delay': {
         'TYPE': 19,
-        'params': [],
-        'P0': {'time': 0.5}, # (249ms)
-        'P1': {'feedback': 0.0}
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'time', 0.5, True], # (249ms)
+            [1, 'feedback', 0.0, True]
+        ]
     },
-    'Keytrk.Delay': {
+    'KeytrkDelay': {
         'TYPE': 20,
-        'params': [],
-        'P0': {'time': 0.5},
-        'P1': {'feedback': 0.0}
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'time', True],
+            [1, 'feedback', True]
+        ]
     },
-    'Filter.Delay': {
+    'FilterDelay': {
         'TYPE': 21,
-        'params': [],
-        'P0': {'time': 0.5},
-        'P1': {'feedback': 0.0},
-        'P2': {'cutoff': 0.5}
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'time', 0.5, True],
+            [1, 'feedback', 0.0, True],
+            [2, 'cutoff', 0.5, False]
+        ]
     },
-    'Invert': {'TYPE': 27, 'params': []},
+    'Invert': {
+        'TYPE': 27, 
+        'params': [[-1, 'input', -1, True]]
+    },
     'Rescale': {
         'TYPE': 26,
-        'P0': {'factor': 1.0},
-        'P1': {'offset': 0.5}
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'factor', 1.0, True],
+            [1, 'offset', 0.5, True]
+        ]
     },
-    'Bit.Crusher': {
+    'BitCrusher': {
         'TYPE': 34,
-        'P0': {'bits': 0.0} #  20-0
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'bits', 0.0, True] #  20-0
+        ]
     },
     'Clipper': {
         'TYPE': 40,
-        'P0': {'upper.Lim': 1.0},
-        'P1': {'lower.Lim': 0.0}
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'upperLim', 1.0, True],
+            [1, 'lowerLim', 0.0, True]
     },
-    'VU.Tracker': {
+    'VUTracker': {
         'TYPE': 41,
-        'P0': {'decay': 0.5}, # (445ms)
-        'P1': {'peak': 1.0} # (bool)   
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'decay', 0.5, False], # (445ms)
+            [1, 'peak', 1.0, False] # (bool)   
+        ]
     },
     'Xfade': {
         'TYPE': 46,
-        'P0': {'amp1': 0.5},
-        'P1': {'amp2': 0.5},
-        'P2': {'mix': 0.5},
-        'P3': {'audio': 1.0}
+        'params': [
+            [0, 'amp1', 0.5, True],
+            [1, 'amp2', 0.5, True],
+            [2, 'mix', 0.5, True],
+            [3, 'audio', 1.0, False]
+        ]
     },
-    'Env.Trigger': {
+    'EnvTrigger': {
         'TYPE': 51,
-        'P0': {'pregain': 1.0}, #  (6.02dB)
-        'P1': {'attack': 0.5}, #  (445ms)
-        'P2': {'release': 0.5}, #  (445ms)
-        'P3': {'trig.Level': 0.5}, #  (-12dB)
-        'P4': {'rel.Level': 1.0},  
-        'P5': {'mod.Scale': 1.0}  
+        'params': [
+            [-1, 'input', -1, True],        
+            [0, 'pregain', 1.0, False], #  (6.02dB)
+            [1, 'attack', 0.5, False], #  (445ms)
+            [2, 'release', 0.5, False], #  (445ms)
+            [3, 'trigLevel', 0.5, False], #  (-12dB)
+            [4, 'relLevel', 1.0, False],  
+            [5, 'modScale', 1.0, False]
+        ]
     },    
-    'Dyn.Follower': {
+    'DynFollower': {
         'TYPE': 54,
         'P0': {'pregain': 1.0}, #  (6.02dB)
         'P1': {'attack': 0.5}, #  (445ms)
         'P2': {'release': 0.5}, #  (445ms)
-        'P3': {'thres.level': 0.5}, #  (-12dB)
-        'P4': {'thres.ratio': 0.2},
-        'P5': {'mod.scale': 1.0}
+        'P3': {'thresLevel': 0.5}, #  (-12dB)
+        'P4': {'thresRatio': 0.2},
+        'P5': {'modScale': 1.0}
     },    
     'Filter2': {
         'TYPE': 56,
@@ -290,11 +323,11 @@ BLOKS = {
         'P10': {'width': 0.5}, # 
         'P11': {'amp': 0.0} #    
     },
-    'Mono.Out': {
+    'MonoOut': {
         'TYPE': 0,
         'P0': {'volume': 0.5}
     },
-    'Stereo.Out': {
+    'StereoOut': {
         'TYPE': 25,
         'P0': {'pan': 0.5},
         'P1': {'volume': 0.5}
