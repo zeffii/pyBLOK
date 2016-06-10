@@ -148,12 +148,10 @@ class pBlk:
         Env.advanced : P6-P17 "envelope" [range(6, 18)]  # 12
         keytrack : P0-P127 "range" [range(128)]          # 128
         Waveshaper : P2-P129 "gradient" [range(2, 130)]  # 128
-
         '''
-
         indices = {
-            'Env.custom': list(range(4, 196)),
-            'Env.advanced' : list(range(6, 18)),
+            'EnvCustom': list(range(4, 196)),
+            'EnvAdvanced' : list(range(6, 18)),
             'keytrack' : list(range(128)),         
             'Waveshaper' : list(range(2, 130))
         }.get(self.name)
