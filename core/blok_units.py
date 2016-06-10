@@ -1,3 +1,5 @@
+# version 2 - 
+
 '''
 # Shapes
 Sine = 0.000000
@@ -16,7 +18,22 @@ Off = 0.000000
 peak = 0.333333
 low = 0.500000
 high = 1.000000
+
+    params are declared thus:
+
+        [Pnum, Pname, default, can_input]
+          |
+        1 - Pnum -1 means it's an input socket for audio
+        2 - Pnum 0..n indicate the corresponding Pnum for the parameter
+        3 - a Pnum with parens () means the param state is encoded using a range of P numbers. 
+            An example of a param like this is the graphical element of the Waveshaper which 
+            is incoded by 128 float values - I like to think of these as a Float Vector type.
+
+        the 'can_input' entry states whether the parameter can be controlled via input from
+        another blok unit. For example the waveform shape can be modified on the UI, it has 
+        no input socket to allow for knobs or other units to decide the form.
 '''
+
 
 DOC = '''\
 <?xml version="1.0" standalone="no" ?>
@@ -29,7 +46,7 @@ GLOBAL = '''
 
 
 BLOKS = {
-    'Env.basic': {
+    'EnvBasic': {
         'TYPE': 2,
         'params': [
             [0, 'attack', 0.0, False],
@@ -38,7 +55,7 @@ BLOKS = {
             [3, 'release', 0.5, False]
         ]
     },
-    'Env.custom': {
+    'EnvCustom': {
         'TYPE': 23,
         'params': [
             [0, 'speed', 0.6, True],
@@ -48,7 +65,7 @@ BLOKS = {
             [(4, 195), 'envelope', [0.5 for i in range(191)], False]
         ]
     },
-    'Env.advanced': {
+    'EnvAdvanced': {
         'TYPE': 55,
         'params': [
             [0, 'attack', 0.1, True],
@@ -68,13 +85,13 @@ BLOKS = {
             [2, 'shape', 0.5, False] # (enum [Sine, Tri, Saw, Square])
         ]
     },
-    'Knob.int': {
+    'KnobInt': {
         'TYPE': 8,
         'params': [
             [0, 'range', 0.5, False]
         ]
     },
-    'Knob.ext': {
+    'KnobExt': {
         'TYPE': [13, 14, 15, 16, 28, 29, 30, 31], #  only one of each may exist.
         'params': [
             [0, 'range', 0.5, False]
@@ -89,32 +106,32 @@ BLOKS = {
     },
     'Random': {'TYPE': 35, 'params': []},
     'Aftertouch': {'TYPE': 48, 'params': []},
-    'Mod.wheel': {'TYPE': 47, 'params': []},
+    'Modwheel': {'TYPE': 47, 'params': []},
     'Osc': {
         'TYPE': 4,
         'params': [
             [0, 'tuning', 0.5, True],
             [1, 'amp', 0.5, True],
             [2, 'shape', 0.5, False] # (enum [Sine, Tri, Saw, Square])
-        ],
+        ]
     },
-    'Sub.Osc': {
+    'SubOsc': {
         'TYPE': 18,
         'params': [
             [0, 'tuning', 0.5, True],
             [1, 'amp', 0.5, True],
             [2, 'shape', 0.5, False] # (enum [Sine, Tri, Saw, Square])
-        ],
+        ]
     },
-    'Fixed.Osc': {
+    'FixedOsc': {
         'TYPE':  10,
         'params': [
             [0, 'tuning', 0.5, True],
             [1, 'amp', 0.5, True],
             [2, 'shape', 0.0, False] # (enum [Sine, Tri, Saw, Square])
-        ],
+        ]
     },
-    'Hyper.Osc': {
+    'HyperOsc': {
         'TYPE': 32,
         'params': [
             [0, 'amp', 0.5, True],
@@ -122,54 +139,63 @@ BLOKS = {
             [2, 'diffuse', 0.5, False],
             [3, 'spread', 0.5, False],
             [4, 'shape', 0.5, False]  # (enum [Sine, Tri, Saw, Square])
-        ],
+        ]
     },
-    'Noise.Osc': {
+    'NoiseOsc': {
         'TYPE': 7, 
-        'params': [],
-        'P0': {'amp': 0.5}
+        'params': [
+            [0, 'amp', 0.5, False]
+        ]
     }, 
     'Impulse': {
         'TYPE': 39, 
-        'params': [],
-        'P0': {'amp': 1.0}
+        'params': [
+            [0, 'amp', 1.0, True]
+        ]
     },
-    'Sync.Osc': {
+    'SyncOsc': {
         'TYPE': 43,
-        'params': [],
-        'P0': {'amp': 0.5},
-        'P1': {'tuning': 0.5},
-        'P2': {'amount': 0.5},
-        'P3': {'sharpness': 0.5},
-        'P4': {'phase.reset': 0.0},
-        'P5': {'shape': 0.5}  # (enum [Sine, Tri, Saw, Square])
+        'params': [
+            [0, 'amp', 0.5, True],
+            [1, 'tuning', 0.5, True],
+            [2, 'amount', 0.5, True],
+            [3, 'sharpness', 0.5, False],
+            [4, 'phase_reset', 0.0, False],
+            [5, 'shape', 0.5, False]  # (enum [Sine, Tri, Saw, Square])
+        ]
     },
-    'PWM.Osc': {
+    'PWMOsc': {
         'TYPE': 42,
-        'params': [],
-        'P0': {'amp': 0.5},
-        'P1': {'tuning': 0.5},
-        'P2': {'pulsewidth': 0.5},
-        'P3': {'phase.reset': 0.0},
-        'P4': {'shape': 0.5}  # (enum [Sine, Tri, Saw, Square])
+        'params': [
+            [0, 'amp', 0.5, True],
+            [1, 'tuning', 0.5, True],
+            [2, 'pulsewidth', 0.5, True],
+            [3, 'phase_reset', 0.0, False],
+            [4, 'shape', 0.5, False]  # (enum [Sine, Tri, Saw, Square])
+        ]
     },
     'Sampler': {
         'TYPE': 58,
-        'params': [],
-        'P0': {'tuning': 0.5},
-        'P1': {'amp': 0.5}
+        'params': [
+            [0, 'tuning', 0.5, True],
+            [1, 'amp', 0.5, True]
+        ]
     },
     'Filter': {
         'TYPE': 1,
-        'params': [],
-        'P0': {'cutoff': 0.5},
-        'P1': {'resonance': 0.0},
-        'P2': {'kind': 0.0}  # (enum [LowPass, HighPass, BandPass, BandReject])
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'cutoff', 0.5, True],
+            [1, 'resonance', 0.0, True],
+            [2, 'kind', 0.0, False]  # (enum [LowPass, HighPass, BandPass, BandReject])
+        ]
     },
     'Amplifier': {
         'TYPE': 6,
-        'params': [],
-        'P0': {'factor': 0.5}
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'factor', 0.5, True]
+        ]
     },
     'Waveshaper': {
         'TYPE': 24,
