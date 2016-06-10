@@ -31,28 +31,37 @@ GLOBAL = '''
 BLOKS = {
     'Env.basic': {
         'TYPE': 2,
-        'P0': {'attack': 0.0},
-        'P1': {'decay': 0.2},
-        'P2': {'sustain': 0.3},
-        'P3': {'release': 0.5}
+        'inputs': None,
+        'params': [
+            [0, 'attack', 0.0, False],
+            [1, 'decay', 0.2, False],
+            [2, 'sustain', 0.3, False],
+            [3, 'release', 0.5, False]
+        ]
     },
     'Env.custom': {
         'TYPE': 23,
-        'P0': {'speed': 0.6},
-        'P1': {'loop': 0.2}, # (bool, off)
-        'P2': {'sustain': 0.3}, # (bool, off)
-        'P3': {'loop.pos': 0.5},
-        'P4-P195': {'envelope': [0.5 for i in range(191)]}
+        'inputs': [0],
+        'params': [
+            [0, 'speed', 0.6, True],
+            [1, 'loop', 0.2, False],
+            [2, 'sustain', 0.3, False],
+            [3, 'pos', 0.5, False],
+            [(4, 195), 'envelope', [0.5 for i in range(191)], False]
+        ]
     },
     'Env.advanced': {
         'TYPE': 55,
-        'P0': {'attack': 0.1},
-        'P1': {'decay': 0.2},
-        'P2': {'sustain': 0.4},
-        'P3': {'release': 0.5},
-        'P4': {'amount': 1.0},
-        'P5': {'sust.decay': 0.5},
-        'P6-P17': {'envelope': [0.5 for i in range(12)]}  # maybe hard-code these instead?
+        'inputs': [0, 1, 2, 3, 4],
+        'params': [
+            [0, 'attack', 0.1, True],
+            [1, 'decay', 0.2, True],
+            [2, 'sustain', 0.4, True],
+            [3, 'release', 0.5, True],
+            [4, 'amount', 1.0, True],
+            [5, 'sustain_decay', 0.5, False],
+            [(6, 17), 'envelope', [0.5 for i in range(12)], False]
+        ]
     },
     'LFO': {
         'TYPE': 3,
