@@ -31,7 +31,6 @@ GLOBAL = '''
 BLOKS = {
     'Env.basic': {
         'TYPE': 2,
-        'inputs': None,
         'params': [
             [0, 'attack', 0.0, False],
             [1, 'decay', 0.2, False],
@@ -41,7 +40,6 @@ BLOKS = {
     },
     'Env.custom': {
         'TYPE': 23,
-        'inputs': [0],
         'params': [
             [0, 'speed', 0.6, True],
             [1, 'loop', 0.2, False],
@@ -52,7 +50,6 @@ BLOKS = {
     },
     'Env.advanced': {
         'TYPE': 55,
-        'inputs': [0, 1, 2, 3, 4],
         'params': [
             [0, 'attack', 0.1, True],
             [1, 'decay', 0.2, True],
@@ -65,64 +62,81 @@ BLOKS = {
     },
     'LFO': {
         'TYPE': 3,
-        'P0': {'frequency': 0.5},
-        'P1': {'amp': 0.5},
-        'P2': {'shape': 0.5} # (enum [Sine, Tri, Saw, Square])
+        'params': [
+            [0, 'frequency', 0.5, True],
+            [1, 'amp', 0.5, True],
+            [2, 'shape', 0.5, False] # (enum [Sine, Tri, Saw, Square])
+        ]
     },
     'Knob.int': {
         'TYPE': 8,
-        'P0': {'range': 0.5}
+        'params': [
+            [0, 'range', 0.5, False]
+        ]
     },
     'Knob.ext': {
         'TYPE': [13, 14, 15, 16, 28, 29, 30, 31], #  only one of each may exist.
-        'P0': {'range': 0.5}
+        'params': [
+            [0, 'range', 0.5, False]
+        ]
     },
-    'Velocity': {
-        'TYPE': 17
-    },
+    'Velocity': {'TYPE': 17, 'params': []},
     'Keytrack': {
         'TYPE': 33,
-        'P0-P127': {'range': [i/128 for i in range(128)]}  #  maybe hardcode instead?
+        'params': [
+            [(0, 127), 'range', [i/128 for i in range(128)], False]  #  maybe hardcode instead?
+        ]
     },
-    'Random': {'TYPE': 35},
-    'Aftertouch': {'TYPE': 48},
-    'Mod.wheel': {'TYPE': 47},
+    'Random': {'TYPE': 35, 'params': []},
+    'Aftertouch': {'TYPE': 48, 'params': []},
+    'Mod.wheel': {'TYPE': 47, 'params': []},
     'Osc': {
         'TYPE': 4,
-        'P0': {'tuning': 0.5},
-        'P1': {'amp': 0.5},
-        'P2': {'shape':  0.5} # (enum [Sine, Tri, Saw, Square])
+        'params': [
+            [0, 'tuning', 0.5, True],
+            [1, 'amp', 0.5, True],
+            [2, 'shape', 0.5, False] # (enum [Sine, Tri, Saw, Square])
+        ],
     },
     'Sub.Osc': {
         'TYPE': 18,
-        'P0': {'tuning': 0.5},
-        'P1': {'amp': 0.5},
-        'P2': {'shape': 0.5}  # (enum [Sine, Tri, Saw, Square])
+        'params': [
+            [0, 'tuning', 0.5, True],
+            [1, 'amp', 0.5, True],
+            [2, 'shape', 0.5, False] # (enum [Sine, Tri, Saw, Square])
+        ],
     },
     'Fixed.Osc': {
         'TYPE':  10,
-        'P0': {'tuning': 0.5},
-        'P1': {'amp': 0.5},
-        'P2': {'shape': 0.0}  # (enum [Sine, Tri, Saw, Square])
+        'params': [
+            [0, 'tuning', 0.5, True],
+            [1, 'amp', 0.5, True],
+            [2, 'shape', 0.0, False] # (enum [Sine, Tri, Saw, Square])
+        ],
     },
     'Hyper.Osc': {
         'TYPE': 32,
-        'P0': {'amp': 0.5},
-        'P1': {'tuning': 0.5},
-        'P2': {'diffuse': 0.5},
-        'P3': {'spread': 0.5},
-        'P4': {'shape': 0.5}  # (enum [Sine, Tri, Saw, Square])
+        'params': [
+            [0, 'amp', 0.5, True],
+            [1, 'tuning', 0.5, False],
+            [2, 'diffuse', 0.5, False],
+            [3, 'spread', 0.5, False],
+            [4, 'shape', 0.5, False]  # (enum [Sine, Tri, Saw, Square])
+        ],
     },
     'Noise.Osc': {
         'TYPE': 7, 
+        'params': [],
         'P0': {'amp': 0.5}
     }, 
     'Impulse': {
         'TYPE': 39, 
+        'params': [],
         'P0': {'amp': 1.0}
     },
     'Sync.Osc': {
         'TYPE': 43,
+        'params': [],
         'P0': {'amp': 0.5},
         'P1': {'tuning': 0.5},
         'P2': {'amount': 0.5},
@@ -132,6 +146,7 @@ BLOKS = {
     },
     'PWM.Osc': {
         'TYPE': 42,
+        'params': [],
         'P0': {'amp': 0.5},
         'P1': {'tuning': 0.5},
         'P2': {'pulsewidth': 0.5},
@@ -140,44 +155,49 @@ BLOKS = {
     },
     'Sampler': {
         'TYPE': 58,
+        'params': [],
         'P0': {'tuning': 0.5},
         'P1': {'amp': 0.5}
     },
     'Filter': {
         'TYPE': 1,
+        'params': [],
         'P0': {'cutoff': 0.5},
         'P1': {'resonance': 0.0},
         'P2': {'kind': 0.0}  # (enum [LowPass, HighPass, BandPass, BandReject])
     },
     'Amplifier': {
         'TYPE': 6,
+        'params': [],
         'P0': {'factor': 0.5}
     },
     'Waveshaper': {
         'TYPE': 24,
+        'params': [],
         'P0': {'scale': 0.5},
         'P1': {'offset': 0.5},
         'P2-P129': {'gradient': [i/128 for i in range(128)]}  # hardcode? import? offer presets?
     },
     'Delay': {
         'TYPE': 19,
+        'params': [],
         'P0': {'time': 0.5}, # (249ms)
         'P1': {'feedback': 0.0}
     },
     'Keytrk.Delay': {
         'TYPE': 20,
+        'params': [],
         'P0': {'time': 0.5},
         'P1': {'feedback': 0.0}
     },
     'Filter.Delay': {
         'TYPE': 21,
+        'params': [],
         'P0': {'time': 0.5},
         'P1': {'feedback': 0.0},
         'P2': {'cutoff': 0.5}
     },
-    'Invert': {
-        'TYPE': 27
-    },
+    'Invert': {'TYPE': 27, 'params': []},
     'Rescale': {
         'TYPE': 26,
         'P0': {'factor': 1.0},
