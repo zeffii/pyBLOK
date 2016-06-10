@@ -262,6 +262,7 @@ BLOKS = {
             [-1, 'input', -1, True],
             [0, 'upperLim', 1.0, True],
             [1, 'lowerLim', 0.0, True]
+        ]
     },
     'VUTracker': {
         'TYPE': 41,
@@ -283,59 +284,76 @@ BLOKS = {
     'EnvTrigger': {
         'TYPE': 51,
         'params': [
-            [-1, 'input', -1, True],        
+            [-1, 'input', -1, True],
             [0, 'pregain', 1.0, False], #  (6.02dB)
             [1, 'attack', 0.5, False], #  (445ms)
             [2, 'release', 0.5, False], #  (445ms)
             [3, 'trigLevel', 0.5, False], #  (-12dB)
-            [4, 'relLevel', 1.0, False],  
+            [4, 'relLevel', 1.0, False],
             [5, 'modScale', 1.0, False]
         ]
     },    
     'DynFollower': {
         'TYPE': 54,
-        'P0': {'pregain': 1.0}, #  (6.02dB)
-        'P1': {'attack': 0.5}, #  (445ms)
-        'P2': {'release': 0.5}, #  (445ms)
-        'P3': {'thresLevel': 0.5}, #  (-12dB)
-        'P4': {'thresRatio': 0.2},
-        'P5': {'modScale': 1.0}
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'pregain', 1.0, False], #  (6.02dB)
+            [1, 'attack', 0.5, False], #  (445ms)
+            [2, 'release', 0.5, False], #  (445ms)
+            [3, 'thresLevel', 0.5, False], #  (-12dB)
+            [4, 'thresRatio', 0.2, False],
+            [5, 'modScale', 1.0, False]
+        ]
     },    
     'Filter2': {
         'TYPE': 56,
-        'P0': {'cutoff': 0.5}, #  (704Hz)
-        'P1': {'resonance': 0.0},
-        'P2': {'kind': 0.0}, # (enum [LowPass, HighPass, BandPass, BandReject])
-        'P3': {'keytrack': 0.0}, #  (bool)
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'cutoff', 0.5, True], #  (704Hz)
+            [1, 'resonance', 0.0, True],
+            [2, 'kind', 0.0, False], # (enum [LowPass, HighPass, BandPass, BandReject])
+            [3, 'keytrack', 0.0, False] #  (bool)
+        ]
     },    
     'bandEQ': {
         'TYPE': 57,
-        'P0': {'kind': 0.0}, # (enum [Off, peak, low, high]),
-        'P1': {'freq': 0.5}, #  (704Hz)
-        'P2': {'width': 0.5}, # 
-        'P3': {'amp': 0.0}, # 
-        'P4': {'kind': 0.0}, # (enum [Off, peak, low, high]),
-        'P5': {'freq': 0.5}, #  (704Hz)
-        'P6': {'width': 0.5}, # 
-        'P7': {'amp': 0.0}, # 
-        'P8': {'kind': 0.0}, # (enum [Off, peak, low, high]),
-        'P9': {'freq': 0.5}, #  (704Hz)
-        'P10': {'width': 0.5}, # 
-        'P11': {'amp': 0.0} #    
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'kind1', 0.0, False], # (enum [Off, peak, low, high]),
+            [1, 'freq1', 0.5, False], #  (704Hz)
+            [2, 'width1', 0.5, False],
+            [3, 'amp1', 0.0, False], 
+            [4, 'kind2', 0.0, False], # (enum [Off, peak, low, high]),
+            [5, 'freq2', 0.5, False], #  (704Hz)
+            [6, 'width2', 0.5, False],
+            [7, 'amp2', 0.0, False],
+            [8, 'kind3', 0.0, False], # (enum [Off, peak, low, high]),
+            [9, 'freq3', 0.5, False], #  (704Hz)
+            [10, 'width3', 0.5, False],
+            [11, 'amp3', 0.0, False]
+        ]    
     },
     'MonoOut': {
         'TYPE': 0,
-        'P0': {'volume': 0.5}
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'volume', 0.5, False]
+        ]
     },
     'StereoOut': {
         'TYPE': 25,
-        'P0': {'pan': 0.5},
-        'P1': {'volume': 0.5}
+        'params': [
+            [-1, 'input', -1, True],
+            [0, 'pan', 0.5, True],
+            [1, 'volume', 0.5, False]
+        ]
     },
-    'Arp': {
+    'Arp': { # ignore this blok, dono't use it. I don't.
         'TYPE': 44,
-        'P0': {'speed': 1.0},
-        'P1': {'ticks': 1.0},
-        'P2': {'octaves': 0.5}
+        'params': [
+            [0, 'speed', 1.0, False],
+            [1, 'ticks', 1.0, False],
+            [2, 'octaves', 0.5, False]
+        ]
     }
 }
