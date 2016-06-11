@@ -109,7 +109,6 @@ class pBlk:
             elif isinstance(idx, tuple):
                 # only other option is a tuple
                 p_start, p_finish = idx
-                print(idx)
                 for i, v in enumerate(value):
                     j = i + p_start
                     self.params[j] = v
@@ -170,8 +169,7 @@ class pBlk:
         for d in self.standard:
             ret_str.append("{0}=\"{1}\"".format(d, getattr(self, d)))
 
-        for idx, p in enumerate(self.params):
-            my_val = p[2]
+        for idx, my_val in enumerate(self.params):
             ret_str.append("P{0}=\"{1:6f}\"".format(str(idx), my_val))
       
         ret_str.append('/>')
