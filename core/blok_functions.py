@@ -98,29 +98,22 @@ class pBlk:
         '''
         restructures simple BLOK dict
         '''
-
-        def get_innerdict(outer_dict):
-            '''gets first key/value of the inner dict '''
-            return [i for i in outer_dict.values()][0]
-
         parameter_dict = {}
-        for p in self.all_params.keys():
+        for m in self.all_params.keys():
 
-            if p == 'TYPE':
+            if m == 'TYPE':
                 continue
+            if m == 'params':
+                for idx, name, value, can_connect in self.all_params['params']:
+                    if isinstance(idx, int) and idx >= 0:
+                        parameter_dict[idx] = value
+                    else:
+                        # only other option is a tuple
+                        p_start, p_finish = idx
+                        for i, v in enumerate(value):
+                            idxj = i + p_start
+                            parameter_dict[idxj] = v
 
-            if '-' in p:
-                start, finish = p.split('-')
-                p_start, p_finish = int(start[1:]), int(finish[1:])
-                param_list = get_innerdict(self.all_params.get(p))
-
-                for i in range(p_finish-p_start+1):
-                    idx = i + p_start
-                    my_val = param_list[i]
-                    parameter_dict[idx] = my_val
-            else:
-                idx = int(p[1:])
-                parameter_dict[idx] = get_innerdict(self.all_params.get(p))
         return parameter_dict
 
 
