@@ -4,13 +4,13 @@ from blok_utils import rate_from_herz
 # http://computermusicresource.com/Simple.bell.tutorial.html
 overtones = [0.56, .92, 1.19, 1.71, 2.0, 2.74, 3, 3.76, 4.07]
 
-out = pBlk('Mono.Out', (520, 110))
+out = pBlk('MonoOut', (520, 110))
 out.set_params(volume=0.3)
 
-env1 = pBlk('Env.basic', (20, 110))
+env1 = pBlk('EnvBasic', (20, 110))
 env1.set_params(attack=0.11, decay=0.65, release=0.8)
 
-noise = pBlk('Noise.Osc', (180, 110))
+noise = pBlk('NoiseOsc', (180, 110))
 env1 > noise.index(0)
 
 fundamental = 200
@@ -30,4 +30,4 @@ for freq, y in zip(overtones, ypositions):
     rescale > _filter.index(1)
 
 
-pCompile(path=r'C:\Users\zeffi\Desktop\fluxo_bell.blkx', silent=0)
+pCompile(path=r'C:\Users\zeffi\Desktop\v2fluxo_bell.blkx', silent=0)

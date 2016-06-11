@@ -52,6 +52,7 @@ def get_type(name):
     return BLOKS[name]['TYPE']
 
 
+
 storables = []
 
 def pCompile(path=None, silent=1):
@@ -88,44 +89,33 @@ class pBlk:
         self.POS = get_pos()
         self.X = xy[0]
         self.Y = xy[1]
-        self.all_params = BLOKS[self.name]
-        self.params = self.make_params()
+        
+        self.all_params = BLOKS[self.name]['params']
+        self.params = {}
         self.remaps = {}
-        self.map_paramindex_from_parameters()  # fills remaps dict
+        self.make_params()
+        
         storables.append(self)
 
     def make_params(self):
-        '''
-        restructures simple BLOK dict
-        '''
+        '''restructures simple BLOK dict'''
+
         parameter_dict = {}
-        for m in self.all_params.keys():
+        for idx, name, value, can_connect in self.all_params:
+            print(idx)
+            if isinstance(idx, int) and idx >= 0:
+                self.params[idx] = value
 
-            if m == 'TYPE':
-                continue
-            if m == 'params':
-                for idx, name, value, can_connect in self.all_params['params']:
-                    if isinstance(idx, int) and idx >= 0:
-                        parameter_dict[idx] = value
-                    else:
-                        # only other option is a tuple
-                        p_start, p_finish = idx
-                        for i, v in enumerate(value):
-                            idxj = i + p_start
-                            parameter_dict[idxj] = v
+            elif isinstance(idx, tuple):
+                # only other option is a tuple
+                p_start, p_finish = idx
+                print(idx)
+                for i, v in enumerate(value):
+                    j = i + p_start
+                    self.params[j] = v
 
-        return parameter_dict
-
-
-    def map_paramindex_from_parameters(self):
-        ''' generates a map between parameter name to Pnum index '''
-        for m in self.all_params.keys():
-            if m == 'TYPE':
-                continue
-            if m == 'params':
-                for idx, name, value, can_connect in self.all_params['params']:
-                    if isinstance(idx, tuple) or idx >= 0:
-                        self.remaps[name] = idx
+            if isinstance(idx, tuple) or idx >= 0:
+                self.remaps[name] = idx
 
 
     def set_params(self, **parameters):
@@ -135,8 +125,8 @@ class pBlk:
             if isinstance(idx, tuple):
                 '''this disects those parameters that are Float Vectors'''
                 start, end = idx
-                for idx, i in enumerate(range(start, end+1)):
-                    self.params[i] = self.all_params[name][idx]
+                for j, i in enumerate(range(start, end+1)):
+                    self.params[i] = value[j]
             else:
                 '''single value Float based parameters'''
                 self.params[idx] = value
@@ -181,7 +171,7 @@ class pBlk:
             ret_str.append("{0}=\"{1}\"".format(d, getattr(self, d)))
 
         for idx, p in enumerate(self.params):
-            my_val = self.params.get(p)
+            my_val = p[2]
             ret_str.append("P{0}=\"{1:6f}\"".format(str(idx), my_val))
       
         ret_str.append('/>')
