@@ -1,6 +1,10 @@
 '''
 docstring: 
-
+pylinting : 
+   "disable": [
+       "C0103", "C0413", "R0903", "I0011", "E0401", "C0111",
+       "C0301", "W0104", "W0106", "W0105", "W0612"
+    ],
 
 '''
 
@@ -121,14 +125,13 @@ class pBlk:
 
 
     def map_paramindex_from_parameters(self):
-        ''' things '''
-
+        ''' generates a map between parameter name to Pnum index '''
         for m in self.all_params.keys():
             if m == 'TYPE':
                 continue
             if m == 'params':
                 for idx, name, value, can_connect in self.all_params['params']:
-                    if idx >= 0:
+                    if isinstance(idx, tuple) or idx >= 0:
                         self.remaps[name] = idx
 
 
@@ -137,10 +140,12 @@ class pBlk:
         for name, value in parameters.items():
             idx = self.remaps[name]
             if isinstance(idx, tuple):
+                '''this disects those parameters that are Float Vectors'''
                 start, end = idx
-                for i in range(start, end):
-                    ...
+                for idx, i in enumerate(range(start, end+1)):
+                    self.params[i] = self.all_params[name][idx]
             else:
+                '''single value Float based parameters'''
                 self.params[idx] = value
 
     def set_pvector(self, parameters):
