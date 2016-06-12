@@ -94,11 +94,35 @@ class pBlk:
         self.params = {}
         self.remaps = {}
         self.make_params()
+        # self.add_properties()
         
         storables.append(self)
 
+    # def add_properties(self):
+    #     '''
+    #     adding dynamic properties setter / getter
+    #     learn http://www.python-course.eu/python3_properties.php
+
+    #     '''
+    #     def stump(blok, param_idx, val=None):
+    #         if isinstance(val, (float, tuple)):
+    #             blok.params[param_idx] = val
+    #         return blok.params[param_idx]
+
+    #     for k, v, in self.remaps.items():
+    #         param_name = k
+    #         param_idx = v
+    #         if isinstance(v, tuple):
+    #             continue
+
+    #         setter_func = lambda self, val: stump(self, param_idx, val)
+    #         setattr(self, param_name, setter_func)
+
     def make_params(self):
-        '''restructures simple BLOK dict'''
+        '''
+        restructures simple BLOK dict
+        - This is run only once, in the init portion.
+        '''
 
         parameter_dict = {}
         for idx, name, value, can_connect in self.all_params:
@@ -206,9 +230,9 @@ class Connect:
         return const.format(self.ID, self.FROM, self.TO, self.INPUTID)
 
 
-# SubOsc1 = pBlk('Sub.Osc', (130, 140))
-# SubOsc2 = pBlk('Sub.Osc', (130, 180))
-# Env1 = pBlk('Env.advanced', (30, 180))
+# SubOsc1 = pBlk('SubOsc', (130, 140))
+# SubOsc2 = pBlk('SubOsc', (130, 180))
+# Env1 = pBlk('EnvAdvanced', (30, 180))
 # con1 = Connect(Env1, SubOsc2, index=1)
 # SubOsc1.params[2] = 0.333333
 # Env1.set_params(attack=0.88, decay=0.45, amount=0.2)
