@@ -116,6 +116,7 @@ class pBlk:
             if isinstance(idx, tuple) or idx >= 0:
                 self.remaps[name] = idx
 
+        print(self.params)
 
     def set_params(self, **parameters):
         '''to be used when setting non defaults'''
@@ -168,10 +169,10 @@ class pBlk:
       
         for d in self.standard:
             ret_str.append("{0}=\"{1}\"".format(d, getattr(self, d)))
+        
+        for idx, (key, val) in enumerate(sorted(self.params.items())):
+            ret_str.append("P{0}=\"{1:6f}\"".format(str(idx), val))
 
-        for idx, my_val in enumerate(self.params):
-            ret_str.append("P{0}=\"{1:6f}\"".format(str(idx), my_val))
-      
         ret_str.append('/>')
 
         return ' '.join(ret_str)
