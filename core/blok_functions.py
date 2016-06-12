@@ -102,7 +102,7 @@ class pBlk:
 
         parameter_dict = {}
         for idx, name, value, can_connect in self.all_params:
-            print(idx)
+
             if isinstance(idx, int) and idx >= 0:
                 self.params[idx] = value
 
@@ -115,8 +115,6 @@ class pBlk:
 
             if isinstance(idx, tuple) or idx >= 0:
                 self.remaps[name] = idx
-
-        print(self.params)
 
     def set_params(self, **parameters):
         '''to be used when setting non defaults'''
