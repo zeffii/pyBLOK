@@ -94,29 +94,31 @@ class pBlk:
         self.params = {}
         self.remaps = {}
         self.make_params()
-        # self.add_properties()
+        self.add_properties()
         
         storables.append(self)
 
-    # def add_properties(self):
-    #     '''
-    #     adding dynamic properties setter / getter
-    #     learn http://www.python-course.eu/python3_properties.php
+    def add_properties(self):
+        '''
+        adding dynamic properties setter / getter
+        learn http://www.python-course.eu/python3_properties.php
 
-    #     '''
-    #     def stump(blok, param_idx, val=None):
-    #         if isinstance(val, (float, tuple)):
-    #             blok.params[param_idx] = val
-    #         return blok.params[param_idx]
+        uch.. can't make setter_func from inside a loop, must eval more
 
-    #     for k, v, in self.remaps.items():
-    #         param_name = k
-    #         param_idx = v
-    #         if isinstance(v, tuple):
-    #             continue
+        '''
+        # remaps_sorted = sorted(self.remaps.items(), key=lambda x: x[1])
+        # for param_name, param_idx in remaps_sorted:
+        #     if isinstance(param_idx, tuple):
+        #         continue
+        #     print(param_name, param_idx)
+ 
+        #     def setter_func(self, val=None):
+        #         if isinstance(val, (int, tuple)):
+        #             eval("self.params[{0}] = val".format(param_idx))
 
-    #         setter_func = lambda self, val: stump(self, param_idx, val)
-    #         setattr(self, param_name, setter_func)
+        #         return exec("self.params[{0}]".format(param_idx))
+
+        #     setattr(self, param_name, lambda val: setter_func(self, val))
 
     def make_params(self):
         '''
