@@ -7,7 +7,8 @@ pylinting :
     ],
 
 '''
-
+import types
+import inspect
 from blok_units import BLOKS, GLOBAL, DOC
 
 
@@ -52,7 +53,6 @@ def get_type(name):
     return BLOKS[name]['TYPE']
 
 
-
 storables = []
 
 def pCompile(path=None, silent=1):
@@ -67,7 +67,6 @@ def pCompile(path=None, silent=1):
             print(doc)
     else:
         print(doc)
-
 
 
 
@@ -94,31 +93,32 @@ class pBlk:
         self.params = {}
         self.remaps = {}
         self.make_params()
-        self.add_properties()
         
         storables.append(self)
 
-    def add_properties(self):
-        '''
-        adding dynamic properties setter / getter
-        learn http://www.python-course.eu/python3_properties.php
 
-        uch.. can't make setter_func from inside a loop, must eval more
+    def __getattr__(self, name):
+        def method(*args):
 
-        '''
-        # remaps_sorted = sorted(self.remaps.items(), key=lambda x: x[1])
-        # for param_name, param_idx in remaps_sorted:
-        #     if isinstance(param_idx, tuple):
-        #         continue
-        #     print(param_name, param_idx)
- 
-        #     def setter_func(self, val=None):
-        #         if isinstance(val, (int, tuple)):
-        #             eval("self.params[{0}] = val".format(param_idx))
+            if not name in self.remaps.keys():
+                print('unhandled parameter', name)
+                
+            remaps_sorted = sorted(self.remaps.items(), key=lambda x: x[1])
+            for param_name, param_idx in remaps_sorted:
+                if name == param_name:
+                    if isinstance(param_idx, tuple):
+                        print('no handled tuple input yet')
+                        continue
 
-        #         return exec("self.params[{0}]".format(param_idx))
+                    if args:
+                        val = args[0]
 
-        #     setattr(self, param_name, lambda val: setter_func(self, val))
+                        if isinstance(val, (float, tuple, list, int)):
+                            self.params[param_idx] = val
+                        return self.params[param_idx]
+
+        return method
+         
 
     def make_params(self):
         '''
