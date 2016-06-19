@@ -3,12 +3,11 @@ docstring:
 pylinting : 
    "disable": [
        "C0103", "C0413", "R0903", "I0011", "E0401", "C0111",
-       "C0301", "W0104", "W0106", "W0105", "W0612"
+       "C0301", "W0104", "W0106", "W0105", "W0612", "E1101"
     ],
 
 '''
-import types
-import inspect
+
 from blok_units import BLOKS, GLOBAL, DOC
 
 
@@ -92,33 +91,11 @@ class pBlk:
         self.all_params = BLOKS[self.name]['params']
         self.params = {}
         self.remaps = {}
+        self.input_dict = {}
         self.make_params()
+        self.make_input_dict()
         
         storables.append(self)
-
-
-    def __getattr__(self, name):
-        def method(*args):
-
-            if not name in self.remaps.keys():
-                print('unhandled parameter', name)
-                
-            remaps_sorted = sorted(self.remaps.items(), key=lambda x: x[1])
-            for param_name, param_idx in remaps_sorted:
-                if name == param_name:
-                    if isinstance(param_idx, tuple):
-                        print('no handled tuple input yet')
-                        continue
-
-                    if args:
-                        val = args[0]
-
-                        if isinstance(val, (float, tuple, list, int)):
-                            self.params[param_idx] = val
-                        return self.params[param_idx]
-
-        return method
-         
 
     def make_params(self):
         '''
@@ -141,6 +118,18 @@ class pBlk:
 
             if isinstance(idx, tuple) or idx >= 0:
                 self.remaps[name] = idx
+
+    def make_input_dict(self):
+        '''
+        this maps pluggable sockets to named inputs,
+        not all params have inputs
+        '''
+        idx = 0
+        for loc_idx, name, _, can_connect in self.all_params:
+            if can_connect:
+                self.input_dict[name] = idx
+            idx += 1
+
 
     def set_params(self, **parameters):
         '''to be used when setting non defaults'''
@@ -185,6 +174,11 @@ class pBlk:
         elif socketname in self.params:
             return 1
 
+    def get_index(self, name):
+        name = name[1:]
+        return (self, self.input_dict.get(name))
+
+
     def index(self, idx):
         return (self, idx)
 
@@ -204,6 +198,43 @@ class pBlk:
     def __gt__(self, other):
         if isinstance(other, tuple):
             Connect(self, other[0], index=other[1])
+
+    def __getattr__(self, name):
+
+
+        ''' deal with dynamically created methods '''
+
+        def method(*args):
+
+            if not name in self.remaps.keys():
+                print('unhandled parameter', name)
+                
+            remaps_sorted = sorted(self.remaps.items(), key=lambda x: x[1])
+            for param_name, param_idx in remaps_sorted:
+                if name == param_name:
+                    if isinstance(param_idx, tuple):
+                        print('no handled tuple input yet')
+                        continue
+
+                    if args:
+                        val = args[0]
+
+                        if isinstance(val, (float, tuple, list, int)):
+                            self.params[param_idx] = val
+                        return self.params[param_idx]
+
+        ''' deal with an attribute (not parentheses) '''
+
+        if name.startswith('_'):
+            retval = self.get_index(name)
+            if retval:
+                return retval
+            else:
+                print(name, name[1:], ' does not have an input socket.')
+                return
+
+        return method
+
 
 
 class Connect:
